@@ -1,0 +1,47 @@
+<Subscription xmlns="http://schemas.microsoft.com/2006/03/windows/events/subscription">
+    <SubscriptionId>ExpCreds</SubscriptionId>
+    <SubscriptionType>SourceInitiated</SubscriptionType>
+    <Description>The taskhost.exe (scheduled tasks) was filter as this is normal behavior. NOTE: if a different drive letter is used on client, the event may not be captured. Targets: Vista+</Description>
+    <Enabled>true</Enabled>
+    <Uri>http://schemas.microsoft.com/wbem/wsman/1/windows/EventLog</Uri>
+
+    <!-- Use Normal (default), Custom, MinLatency, MinBandwidth -->
+    <ConfigurationMode>Custom</ConfigurationMode>
+
+    <Delivery Mode="Push">
+        <Batching>
+            <MaxItems>1</MaxItems>
+            <MaxLatencyTime>1000</MaxLatencyTime>
+        </Batching>
+        <PushSettings>
+            <Heartbeat Interval="40000"/>
+        </PushSettings>
+    </Delivery>
+
+    <Query>
+        <![CDATA[
+
+<QueryList>
+  <Query Id="0" Path="Security">
+	<!-- Logging on with Explicit Credentials -->
+    <Select Path="Security">
+          *[System[Provider[@Name='Microsoft-Windows-Security-Auditing'] and (Level=4 or Level=0) and EventID=4648]] 
+		and 
+	*[EventData[Data[@Name='ProcessName']!='C:\Windows\System32\taskhost.exe']]
+
+    </Select>
+  </Query>
+</QueryList>
+
+
+        ]]>
+    </Query>
+
+    <ReadExistingEvents>true</ReadExistingEvents>
+    <TransportName>http</TransportName>
+    <ContentFormat>RenderedText</ContentFormat>
+    <Locale Language="en-US"/>
+    <LogFile>ForwardedEvents</LogFile>
+    <AllowedSourceNonDomainComputers></AllowedSourceNonDomainComputers>
+    <AllowedSourceDomainComputers></AllowedSourceDomainComputers>
+</Subscription>

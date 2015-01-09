@@ -1,0 +1,42 @@
+<Subscription xmlns="http://schemas.microsoft.com/2006/03/windows/events/subscription">
+    <SubscriptionId>WinFAS</SubscriptionId>
+    <SubscriptionType>SourceInitiated</SubscriptionType>
+    <Description>Windows Firewall With Advanced Security Local Modification Events. Target: Vista+</Description>
+    <Enabled>true</Enabled>
+    <Uri>http://schemas.microsoft.com/wbem/wsman/1/windows/EventLog</Uri>
+
+    <!-- Use Normal (default), Custom, MinLatency, MinBandwidth -->
+    <ConfigurationMode>Custom</ConfigurationMode>
+
+    <Delivery Mode="Push">
+        <Batching>
+            <MaxItems>1</MaxItems>
+            <MaxLatencyTime>1000</MaxLatencyTime>
+        </Batching>
+        <PushSettings>
+            <Heartbeat Interval="40000"/>
+        </PushSettings>
+    </Delivery>
+
+    <Query>
+        <![CDATA[
+
+<QueryList>
+  <Query Id="0" Path="Microsoft-Windows-Windows Firewall With Advanced Security/Firewall">
+	<!-- Windows Firewall With Advanced Security Local Modifications -->
+    <Select Path="Microsoft-Windows-Windows Firewall With Advanced Security/Firewall">*[System[Provider[@Name='Microsoft-Windows-Windows Firewall With Advanced Security'] and (Level=2 or Level=4 or Level=0) and (EventID=2004 or EventID=2005 or EventID=2006 or EventID=2009 or EventID=2033)]]</Select>
+  </Query>
+</QueryList>
+
+
+        ]]>
+    </Query>
+
+    <ReadExistingEvents>true</ReadExistingEvents>
+    <TransportName>http</TransportName>
+    <ContentFormat>RenderedText</ContentFormat>
+    <Locale Language="en-US"/>
+    <LogFile>ForwardedEvents</LogFile>
+    <AllowedSourceNonDomainComputers></AllowedSourceNonDomainComputers>
+    <AllowedSourceDomainComputers></AllowedSourceDomainComputers>
+</Subscription>

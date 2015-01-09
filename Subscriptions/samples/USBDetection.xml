@@ -1,0 +1,52 @@
+<Subscription xmlns="http://schemas.microsoft.com/2006/03/windows/events/subscription">
+    <SubscriptionId>USBDetection</SubscriptionId>
+    <SubscriptionType>SourceInitiated</SubscriptionType>
+    <Description>Detection of possible insertion and removal of USB Mass Storage devices. The most useful event can only be collected from Windows 8+ as the OS added a more detail description of USB devices. Targets: Windows 8 and above.</Description>
+    <Enabled>true</Enabled>
+    <Uri>http://schemas.microsoft.com/wbem/wsman/1/windows/EventLog</Uri>
+
+    <!-- Use Normal (default), Custom, MinLatency, MinBandwidth -->
+    <ConfigurationMode>Custom</ConfigurationMode>
+
+    <Delivery Mode="Push">
+        <Batching>
+            <MaxItems>1</MaxItems>
+            <MaxLatencyTime>1000</MaxLatencyTime>
+        </Batching>
+        <PushSettings>
+            <Heartbeat Interval="40000"/>
+        </PushSettings>
+    </Delivery>
+
+    <Query>
+        <![CDATA[
+
+<QueryList>
+  <Query Id="0"> 
+	<!-- Note "Microsoft-Windows-USB-USBHUB3-Analytic"  is an analytic log and cannot be susbcribed too-->
+	<!-- This XPath query was provided to identify Event ID 43 -->
+	<!-- USB Mass Storage Insertion -->
+    <!-- <Select Path="Microsoft-Windows-USB-USBHUB3-Analytic">*[System[Provider[@Name='Microsoft-Windows-USB-USBHUB3'] and Level=4 and EventID=43]]
+and *[EventData[Data[@Name='fid_DeviceDescription']="USB Mass Storage Device"]]
+</Select> -->
+
+<!-- USB Mass Storage Drive Existence -->
+<Select Path='Microsoft-Windows-Kernel-PnP/Configuration'>*[System[Provider[@Name='Microsoft-Windows-Kernel-PnP'] and Level=4 and (EventID=400 or EventID=410)]] and
+*[EventData[Data[@Name='DriverName']="usbstor.inf"]]
+</Select>
+
+  </Query>
+</QueryList>
+
+
+        ]]>
+    </Query>
+
+    <ReadExistingEvents>true</ReadExistingEvents>
+    <TransportName>http</TransportName>
+    <ContentFormat>RenderedText</ContentFormat>
+    <Locale Language="en-US"/>
+    <LogFile>ForwardedEvents</LogFile>
+    <AllowedSourceNonDomainComputers></AllowedSourceNonDomainComputers>
+    <AllowedSourceDomainComputers></AllowedSourceDomainComputers>
+</Subscription>

@@ -1,0 +1,64 @@
+<Subscription xmlns="http://schemas.microsoft.com/2006/03/windows/events/subscription">
+    <SubscriptionId>AccountLogons</SubscriptionId>
+    <SubscriptionType>SourceInitiated</SubscriptionType>
+    <Description>Captures Non-Kerberos Success and Failed Logons</Description>
+    <Enabled>true</Enabled>
+    <Uri>http://schemas.microsoft.com/wbem/wsman/1/windows/EventLog</Uri>
+
+    <!-- Use Normal (default), Custom, MinLatency, MinBandwidth -->
+    <ConfigurationMode>Custom</ConfigurationMode>
+
+    <Delivery Mode="Push">
+        <Batching>
+            <MaxItems>1</MaxItems>
+            <MaxLatencyTime>1000</MaxLatencyTime>
+        </Batching>
+        <PushSettings>
+            <Heartbeat Interval="40000"/>
+        </PushSettings>
+    </Delivery>
+
+    <Query>
+        <![CDATA[
+
+<QueryList>
+  <Query Id="0" Path="Security">
+	<!-- Account Logon/RDP Activities -->
+    <Select Path="Security">
+          *[System[Provider[@Name='Microsoft-Windows-Security-Auditing'] and (Level=4 or Level=0) and (EventID=4624 or EventID=4625 or EventID=4634)]]
+    </Select>
+
+	<!-- Removes all service (success/failed) logons from being captured -->
+	<!-- LogonType 5 and 0 are respectively used for services and system logons. 
+	See: http://blogs.msdn.com/b/ericfitz/archive/2008/02/26/you-learn-something-new-every-day-logon-type-0.aspx 
+	-->
+<Suppress Path="Security">
+	*[System[Provider[@Name='Microsoft-Windows-Security-Auditing'] 
+		and (Level=4 or Level=0) and (EventID=4624 or EventID=4625 or EventID=4634)]]
+	and 
+		*[EventData[
+		(
+			(Data[@Name='LogonType']='5' or Data[@Name='LogonType']='0')
+			or
+			Data[@Name='TargetUserName']='ANONYMOUS LOGON'
+			or
+			Data[@Name='TargetUserSID']='S-1-5-18'
+		)
+]]
+</Suppress>
+	
+  </Query>
+</QueryList>
+
+
+        ]]>
+    </Query>
+
+    <ReadExistingEvents>true</ReadExistingEvents>
+    <TransportName>http</TransportName>
+    <ContentFormat>RenderedText</ContentFormat>
+    <Locale Language="en-US"/>
+    <LogFile>ForwardedEvents</LogFile>
+    <AllowedSourceNonDomainComputers></AllowedSourceNonDomainComputers>
+    <AllowedSourceDomainComputers></AllowedSourceDomainComputers>
+</Subscription>
