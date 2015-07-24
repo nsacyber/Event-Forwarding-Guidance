@@ -1,10 +1,9 @@
-Event Forwarding Guidance
-=========================
+# Event Forwarding Guidance
 
 ## About This Project
-This project hosts scripts for aiding administrators in implementing collection of Windows Event Logs using Windows Event Forwarding.
+This project hosts scripts and configuration files for aiding administrators in collecting security relevant Windows event log entries using Windows Event Forwarding.
 
-## Link to Guidance Paper
+## Paper
 [Spotting the Adversary with Windows Event Log Monitoring](https://www.nsa.gov/ia/_files/app/Spotting_the_Adversary_with_Windows_Event_Log_Monitoring.pdf)
 
 ## License
@@ -33,4 +32,3 @@ property or technical data rights.
 
 Nothing in this Work is intended to constitute an endorsement, explicit or implied, by the U.S.
 Government of any particular manufacturer's product or service.
-
