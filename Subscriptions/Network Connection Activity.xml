@@ -1,13 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <Subscription xmlns="http://schemas.microsoft.com/2006/03/windows/events/subscription">
-    <SubscriptionId>WifiActivity</SubscriptionId>
+    <SubscriptionId>Network Connection Activity</SubscriptionId>
     <SubscriptionType>SourceInitiated</SubscriptionType>
-    <Description>Captures all Wifi related Events. Wired network connections included. Targets: Windows 7+</Description>
+    <Description>Events for network connection activities</Description>
     <Enabled>true</Enabled>
     <Uri>http://schemas.microsoft.com/wbem/wsman/1/windows/EventLog</Uri>
 
-    <!-- Use Normal (default), Custom, MinLatency, MinBandwidth -->
     <ConfigurationMode>Custom</ConfigurationMode>
-
     <Delivery Mode="Push">
         <Batching>
             <MaxItems>1</MaxItems>
@@ -20,54 +19,55 @@
 
     <Query>
         <![CDATA[
-
 <QueryList>
   <Query Id="0">
+    <!-- Wi-Fi Connection Status -->
+    <Select Path="Microsoft-Windows-WLAN-AutoConfig/Operational">
+      *[System[Provider[@Name='Microsoft-Windows-WLAN-AutoConfig']
+        and Level=4
+        and (EventID=8000 or EventID=8001 or EventID=8003 or EventID=8011 or EventID=11000 or EventID=11001)]]
+    </Select>
 
-	<!-- Wifi Connections/Disconnections Success -->
-	<Select Path="Microsoft-Windows-WLAN-AutoConfig/Operational">
-	*[System[Provider[@Name='Microsoft-Windows-WLAN-AutoConfig'] and (EventID=8000 or EventID=8001 or EventID=8003 or EventID=8011 or EventID=11000 or EventID=11001) and Level=4]]
-</Select>
+    <!-- Wi-Fi Connection Failure -->
+    <Select Path="Microsoft-Windows-WLAN-AutoConfig/Operational">
+      *[System[Provider[@Name='Microsoft-Windows-WLAN-AutoConfig']
+        and Level=2
+        and (EventID=8002 or EventID=11002)]]
+    </Select>
 
-	<!-- Wifi Connections Failed -->
-	<Select Path="Microsoft-Windows-WLAN-AutoConfig/Operational">
-	*[System[Provider[@Name='Microsoft-Windows-WLAN-AutoConfig'] and (EventID=8002 or EventID=11002) and Level=2 ]]
+    <!-- Wi-Fi Security Status -->
+    <Select Path="Microsoft-Windows-WLAN-AutoConfig/Operational">
+      *[System[Provider[@Name='Microsoft-Windows-WLAN-AutoConfig']
+        and (Level=2 or Level=4)
+        and (EventID=11004 or EventID=11005 or EventID=11006 or EventID=11010)]]
+    </Select>
 
-</Select>
-
-	<!-- Wifi Connection Security Status (Encryption Info) -->
-	<Select Path="Microsoft-Windows-WLAN-AutoConfig/Operational">
-	*[System[Provider[@Name='Microsoft-Windows-WLAN-AutoConfig'] and (EventID=11004 or EventID=11005 or EventID=11010 or EventID=11006) and (Level=2 or Level=4)]]
-
-</Select>
-
-	<!-- Wifi Connection Security Authentication Status -->
-<Select Path="Microsoft-Windows-WLAN-AutoConfig/Operational">	
-	*[System[Provider[@Name='Microsoft-Windows-WLAN-AutoConfig'] and (EventID=12011 or EventID=12012 or EventID=12013) and (Level=2 or Level=4)]]
-
-</Select>
+    <!-- Wi-Fi Authentication Status -->
+    <Select Path="Microsoft-Windows-WLAN-AutoConfig/Operational">
+      *[System[Provider[@Name='Microsoft-Windows-WLAN-AutoConfig']
+        and (Level=2 or Level=4)
+        and (EventID=12011 or EventID=12012 or EventID=12013)]]
+    </Select>
   </Query>
 
-
-<Query Id="1">
-
-	<!-- Network Connection Status (Wired and Wireless) -->
-	<Select Path="Microsoft-Windows-NetworkProfile/Operational">
-	*[System[Provider[@Name='Microsoft-Windows-NetworkProfile'] and (EventID=10000 or EventID=10001) and Level=4]]
-	</Select>
-</Query>
-
+  <Query Id="1">
+    <!-- Network Connection Status -->
+    <Select Path="Microsoft-Windows-NetworkProfile/Operational">
+      *[System[Provider[@Name='Microsoft-Windows-NetworkProfile']
+        and Level=4
+        and (EventID=10000 or EventID=10001)]]
+    </Select>
+  </Query>
 </QueryList>
-
-
         ]]>
     </Query>
 
     <ReadExistingEvents>true</ReadExistingEvents>
-    <TransportName>http</TransportName>
+    <TransportName>HTTP</TransportName>
     <ContentFormat>RenderedText</ContentFormat>
     <Locale Language="en-US"/>
     <LogFile>ForwardedEvents</LogFile>
+    <PublisherName>Microsoft-Windows-EventCollector</PublisherName>
     <AllowedSourceNonDomainComputers></AllowedSourceNonDomainComputers>
     <AllowedSourceDomainComputers></AllowedSourceDomainComputers>
 </Subscription>

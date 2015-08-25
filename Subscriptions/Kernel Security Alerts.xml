@@ -1,13 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <Subscription xmlns="http://schemas.microsoft.com/2006/03/windows/events/subscription">
-    <SubscriptionId>KernelDriverDetect</SubscriptionId>
+    <SubscriptionId>Kernel Security Alerts</SubscriptionId>
     <SubscriptionType>SourceInitiated</SubscriptionType>
-    <Description>Windows Kernel Driver Errors. This will capture Kernel Signing issues on 64-bit version of Windows Vista+. Targets: Vista+ (x64 only).</Description>
+    <Description>Events indicating kernel security issues</Description>
     <Enabled>true</Enabled>
     <Uri>http://schemas.microsoft.com/wbem/wsman/1/windows/EventLog</Uri>
 
-    <!-- Use Normal (default), Custom, MinLatency, MinBandwidth -->
     <ConfigurationMode>Custom</ConfigurationMode>
-
     <Delivery Mode="Push">
         <Batching>
             <MaxItems>1</MaxItems>
@@ -18,38 +17,45 @@
         </PushSettings>
     </Delivery>
 
-
     <Query>
         <![CDATA[
-            
 <QueryList>
   <Query Id="0" Path="Microsoft-Windows-CodeIntegrity/Operational">
-
-	<!-- Windows Code Integrity Checks (Kernel-mode Driver and User-mode Protected Media Validation) -->
-    <Select Path="Microsoft-Windows-CodeIntegrity/Operational">*[System[Provider[@Name='Microsoft-Windows-CodeIntegrity'] and (Level=2 or Level=3) and (EventID=3001 or EventID=3002 or EventID=3003 or EventID=3004 or EventID=3010 or EventID=3023)]]</Select>
+    <!-- Code Integrity failures -->
+    <Select Path="Microsoft-Windows-CodeIntegrity/Operational">
+      *[System[Provider[@Name='Microsoft-Windows-CodeIntegrity']
+        and (Level=2 or Level=3)
+        and (EventID=3001 or EventID=3002 or EventID=3003 or EventID=3004 or EventID=3010 or EventID=3023)]]
+    </Select>
   </Query>
 
   <Query Id="1" Path="Security">
-
-	<!-- Windows Code Integrity Checks (Invalid hashes) -->
-    <Select Path="Security">*[System[Provider[@Name='Microsoft-Windows-Security-Auditing'] and (Level=0 or Level=4) and (EventID=5038 or EventID=6281)]]</Select>
+    <!-- Invalid image or page hash -->
+    <Select Path="Security">
+      *[System[Provider[@Name='Microsoft-Windows-Security-Auditing']
+        and (Level=4 or Level=0)
+        and (EventID=5038 or EventID=6281)]]
+    </Select>
   </Query>
-  <Query Id="2" Path="System">
 
-	<!-- Failed Kernel Driver Loading -->
-    <Select Path="System">*[System[Provider[@Name='Microsoft-Windows-Kernel-PnP'] and Level=3 and EventID=219]]</Select>
+  <Query Id="2" Path="System">
+    <!-- Failed loading a kernel driver -->
+    <Select Path="System">
+      *[System[Provider[@Name='Microsoft-Windows-Kernel-PnP']
+        and Level=3
+        and EventID=219]]
+    </Select>
   </Query>
 </QueryList>
-
-
         ]]>
     </Query>
 
     <ReadExistingEvents>true</ReadExistingEvents>
-    <TransportName>http</TransportName>
+    <TransportName>HTTP</TransportName>
     <ContentFormat>RenderedText</ContentFormat>
     <Locale Language="en-US"/>
     <LogFile>ForwardedEvents</LogFile>
+    <PublisherName>Microsoft-Windows-EventCollector</PublisherName>
     <AllowedSourceNonDomainComputers></AllowedSourceNonDomainComputers>
     <AllowedSourceDomainComputers></AllowedSourceDomainComputers>
 </Subscription>

@@ -1,13 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <Subscription xmlns="http://schemas.microsoft.com/2006/03/windows/events/subscription">
-    <SubscriptionId>AccountLocked</SubscriptionId>
+    <SubscriptionId>Account Lockout Alerts</SubscriptionId>
     <SubscriptionType>SourceInitiated</SubscriptionType>
-    <Description>User Account Locked Out. Targets: Vista+</Description>
+    <Description>Events indicating a user account was locked</Description>
     <Enabled>true</Enabled>
     <Uri>http://schemas.microsoft.com/wbem/wsman/1/windows/EventLog</Uri>
 
-    <!-- Use Normal (default), Custom, MinLatency, MinBandwidth -->
     <ConfigurationMode>Custom</ConfigurationMode>
-
     <Delivery Mode="Push">
         <Batching>
             <MaxItems>1</MaxItems>
@@ -20,25 +19,27 @@
 
     <Query>
         <![CDATA[
-
 <QueryList>
   <Query Id="0" Path="Security">
-	<!-- For Domain Accounts, event is created on DC-->
-	<!-- For Local Accounts, event is created locally-->
-	<!-- Account Lockouts -->
-    <Select Path="Security">*[System[Provider[@Name='Microsoft-Windows-Security-Auditing'] and (Level=4 or Level=0) and EventID=4740]]</Select>
+    <!-- Account Lockouts -->
+    <!-- For Local Accounts, the event is created locally -->
+    <!-- For Domain Accounts, the event is created on the authenticating DC -->
+    <Select Path="Security">
+      *[System[Provider[@Name='Microsoft-Windows-Security-Auditing']
+        and (Level=4 or Level=0)
+        and EventID=4740]]
+    </Select>
   </Query>
 </QueryList>
-
-
         ]]>
     </Query>
 
     <ReadExistingEvents>true</ReadExistingEvents>
-    <TransportName>http</TransportName>
+    <TransportName>HTTP</TransportName>
     <ContentFormat>RenderedText</ContentFormat>
     <Locale Language="en-US"/>
     <LogFile>ForwardedEvents</LogFile>
+    <PublisherName>Microsoft-Windows-EventCollector</PublisherName>
     <AllowedSourceNonDomainComputers></AllowedSourceNonDomainComputers>
     <AllowedSourceDomainComputers></AllowedSourceDomainComputers>
 </Subscription>

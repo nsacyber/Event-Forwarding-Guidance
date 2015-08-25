@@ -1,13 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <Subscription xmlns="http://schemas.microsoft.com/2006/03/windows/events/subscription">
-    <SubscriptionId>EMETLogs</SubscriptionId>
+    <SubscriptionId>EMET Alerts</SubscriptionId>
     <SubscriptionType>SourceInitiated</SubscriptionType>
-    <Description>EMET Crash Logs. Targets: Windows XP+</Description>
+    <Description>Events indicating possible exploit attempts</Description>
     <Enabled>true</Enabled>
     <Uri>http://schemas.microsoft.com/wbem/wsman/1/windows/EventLog</Uri>
 
-    <!-- Use Normal (default), Custom, MinLatency, MinBandwidth -->
     <ConfigurationMode>Custom</ConfigurationMode>
-
     <Delivery Mode="Push">
         <Batching>
             <MaxItems>1</MaxItems>
@@ -20,25 +19,31 @@
 
     <Query>
         <![CDATA[
-
 <QueryList>
   <Query Id="0" Path="Application">
-	<!-- EMET Events-->
-    <Select Path="Application">*[System[Provider[@Name='EMET'] and (Level=2 or Level=3) and (EventID=1 or EventID=2)]]</Select>
-	<!-- Suppresses EMET's Notifier started event -->
-    <Suppress Path="Application">*[System[Provider[@Name='EMET'] and (EventID=0)]]</Suppress>
+    <!-- Crash events-->
+    <Select Path="Application">
+      *[System[Provider[@Name='EMET']
+        and (Level=2 or Level=3)
+        and (EventID=1 or EventID=2)]
+    </Select>
+
+    <!-- Suppress startup event -->
+    <Suppress Path="Application">
+      *[System[Provider[@Name='EMET']
+        and EventID=0]]
+    </Suppress>
   </Query>
 </QueryList>
-
-
         ]]>
     </Query>
 
     <ReadExistingEvents>true</ReadExistingEvents>
-    <TransportName>http</TransportName>
+    <TransportName>HTTP</TransportName>
     <ContentFormat>RenderedText</ContentFormat>
     <Locale Language="en-US"/>
     <LogFile>ForwardedEvents</LogFile>
+    <PublisherName>Microsoft-Windows-EventCollector</PublisherName>
     <AllowedSourceNonDomainComputers></AllowedSourceNonDomainComputers>
     <AllowedSourceDomainComputers></AllowedSourceDomainComputers>
 </Subscription>

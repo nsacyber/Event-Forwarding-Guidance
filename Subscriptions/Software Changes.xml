@@ -1,13 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <Subscription xmlns="http://schemas.microsoft.com/2006/03/windows/events/subscription">
-    <SubscriptionId>MsiPackages</SubscriptionId>
+    <SubscriptionId>Software Changes</SubscriptionId>
     <SubscriptionType>SourceInitiated</SubscriptionType>
-    <Description>MSI Packages Installed. Targets: Windows 7+.</Description>
+    <Description>Events for Windows servicing &amp; software changes</Description>
     <Enabled>true</Enabled>
     <Uri>http://schemas.microsoft.com/wbem/wsman/1/windows/EventLog</Uri>
 
-    <!-- Use Normal (default), Custom, MinLatency, MinBandwidth -->
     <ConfigurationMode>Custom</ConfigurationMode>
-
     <Delivery Mode="Push">
         <Batching>
             <MaxItems>1</MaxItems>
@@ -20,50 +19,79 @@
 
     <Query>
         <![CDATA[
-
 <QueryList>
   <Query Id="0" Path="Application">
-	<!-- MSI Installer Notifications -->
-    <Select Path="Application">*[System[Provider[@Name='MsiInstaller'] and (EventID=1022 or EventID=1033)]]</Select>
+    <!-- Servicing package installed -->
+    <Select Path="Setup">
+      *[System[Provider[@Name='Microsoft-Windows-Servicing']
+        and Level=0
+        and EventID=2]]
+      and
+      *[UserData[CbsPackageChangeState[IntendedPackageState='Installed']]]
+    </Select>
 
-	<!-- The change status of a Update Package -->
-	<!-- Installed Update Packages -->
-	<Select Path="Setup">*[System[Provider[@Name='Microsoft-Windows-Servicing'] and EventID=2 and Level=0]]
-	and
-	*[UserData[CbsPackageChangeState[IntendedPackageState='Installed']]]
-	</Select>
+    <!-- MSI installed -->
+    <Select Path="Application">
+      *[System[Provider[@Name='MsiInstaller']
+        and (EventID=1022 or EventID=1033)]]
+    </Select>
 
-	<!-- User Application Installation Activities -->
-    <Select Path="Microsoft-Windows-Application-Experience/Program-Inventory">*[System[Provider[@Name='Microsoft-Windows-Application-Experience'] and (EventID=903 or EventID=904)]]</Select>
-    
-	<!-- User Application Update -->
-    <Select Path="Microsoft-Windows-Application-Experience/Program-Inventory">*[System[Provider[@Name='Microsoft-Windows-Application-Experience'] and (EventID=905 or EventID=906)]]</Select>
-	
-	<!-- User Application Removed Activities -->
-	<Select Path="Microsoft-Windows-Application-Experience/Program-Inventory">*[System[Provider[@Name='Microsoft-Windows-Application-Experience'] and (EventID=907 or EventID=908)]]</Select>
-	
-	<!-- Applications Inventory -->
-	<Select Path="Microsoft-Windows-Application-Experience/Program-Inventory">*[System[Provider[@Name='Microsoft-Windows-Application-Experience'] and EventID=800]]</Select>
-	
+    <!-- Application inventory -->
+    <Select Path="Microsoft-Windows-Application-Experience/Program-Inventory">
+      *[System[Provider[@Name='Microsoft-Windows-Application-Experience']
+        and EventID=800]]
+    </Select>
 
+    <!-- Application installed -->
+    <Select Path="Microsoft-Windows-Application-Experience/Program-Inventory">
+      *[System[Provider[@Name='Microsoft-Windows-Application-Experience']
+        and (EventID=903 or EventID=904)]]
+    </Select>
+
+    <!-- Application updated -->
+    <Select Path="Microsoft-Windows-Application-Experience/Program-Inventory">
+      *[System[Provider[@Name='Microsoft-Windows-Application-Experience']
+        and (EventID=905 or EventID=906)]]
+    </Select>
+
+    <!-- Application removed -->
+    <Select Path="Microsoft-Windows-Application-Experience/Program-Inventory">
+      *[System[Provider[@Name='Microsoft-Windows-Application-Experience']
+        and (EventID=907 or EventID=908)]]
+    </Select>
   </Query>
 
   <Query Id="1" Path="System">
-	<!-- Windows Update Installed Events -->
-    <Select Path="System">*[System[Provider[@Name='Microsoft-Windows-WindowsUpdateClient'] and EventID=19]]</Select>
+    <!-- Kernel filter driver installed -->
+    <Select Path="System">
+      *[System[Provider[@Name='Microsoft-Windows-FilterManager']
+        and (Level=4 or Level=0)
+        and EventID=6]]
+    </Select>
 
-	<!-- New File System Filter Driver -->
-    <Select Path="System">*[System[Provider[@Name='Microsoft-Windows-FilterManager'] and EventID=6 and (Level=4 or Level=0)]]</Select>
+    <!-- Windows update installed -->
+    <Select Path="System">
+      *[System[Provider[@Name='Microsoft-Windows-WindowsUpdateClient']
+        and EventID=19]]
+    </Select>
+
+    <!-- Service installed -->
+    <Select Path="System">
+      *[System[Provider[@Name='Service Control Manager']
+        and Level=1
+        and EventID=7045]]
+    </Select>
   </Query>
 </QueryList>
         ]]>
     </Query>
 
     <ReadExistingEvents>true</ReadExistingEvents>
-    <TransportName>http</TransportName>
+    <TransportName>HTTP</TransportName>
     <ContentFormat>RenderedText</ContentFormat>
     <Locale Language="en-US"/>
     <LogFile>ForwardedEvents</LogFile>
+    <PublisherName>Microsoft-Windows-EventCollector</PublisherName>
     <AllowedSourceNonDomainComputers></AllowedSourceNonDomainComputers>
     <AllowedSourceDomainComputers></AllowedSourceDomainComputers>
 </Subscription>

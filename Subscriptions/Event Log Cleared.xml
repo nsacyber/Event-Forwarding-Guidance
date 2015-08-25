@@ -1,13 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <Subscription xmlns="http://schemas.microsoft.com/2006/03/windows/events/subscription">
-    <SubscriptionId>LogDel</SubscriptionId>
+    <SubscriptionId>Event Log Cleared</SubscriptionId>
     <SubscriptionType>SourceInitiated</SubscriptionType>
-    <Description>Log deletions. Targets: Windows XP+</Description>
+    <Description>Events for clearing of event or security logs</Description>
     <Enabled>true</Enabled>
     <Uri>http://schemas.microsoft.com/wbem/wsman/1/windows/EventLog</Uri>
 
-    <!-- Use Normal (default), Custom, MinLatency, MinBandwidth -->
     <ConfigurationMode>Custom</ConfigurationMode>
-
     <Delivery Mode="Push">
         <Batching>
             <MaxItems>1</MaxItems>
@@ -20,25 +19,32 @@
 
     <Query>
         <![CDATA[
+<QueryList>
+  <Query Id="0">
+    <!-- Event log cleared -->
+    <Select Path="System">
+      *[System[Provider[@Name='Microsoft-Windows-Eventlog']
+        and Level=4
+        and EventID=104]]
+    </Select>
 
-    <QueryList>
-	<Query Id="0">
-		<!-- Security Log File Cleared -->
-		<Select Path="Security">*[System[Provider[@Name='Microsoft-Windows-Eventlog'] and Level=4 and EventID=1102]]</Select>
-
-		<!-- Other Log Files Cleared -->
-		<Select Path="System">*[System[Provider[@Name='Microsoft-Windows-Eventlog'] and Level=4 and EventID=104]]</Select>
-	</Query>
-    </QueryList>
-
+    <!-- Security log cleared -->
+    <Select Path="Security">
+      *[System[Provider[@Name='Microsoft-Windows-Eventlog']
+        and Level=4
+        and EventID=1102]]
+    </Select>
+  </Query>
+</QueryList>
         ]]>
     </Query>
 
     <ReadExistingEvents>true</ReadExistingEvents>
-    <TransportName>http</TransportName>
+    <TransportName>HTTP</TransportName>
     <ContentFormat>RenderedText</ContentFormat>
     <Locale Language="en-US"/>
     <LogFile>ForwardedEvents</LogFile>
+    <PublisherName>Microsoft-Windows-EventCollector</PublisherName>
     <AllowedSourceNonDomainComputers></AllowedSourceNonDomainComputers>
     <AllowedSourceDomainComputers></AllowedSourceDomainComputers>
 </Subscription>
