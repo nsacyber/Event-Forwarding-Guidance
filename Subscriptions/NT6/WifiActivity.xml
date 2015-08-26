@@ -37,13 +37,13 @@
 
 	<!-- Wifi Connection Security Status (Encryption Info) -->
 	<Select Path="Microsoft-Windows-WLAN-AutoConfig/Operational">
-	*[System[Provider[@Name='Microsoft-Windows-WLAN-AutoConfig']] and (EventID=11004 or EventID=11005 or EventID=11010 or EventID=11006) and (Level=2 or Level=4) ]
+	*[System[Provider[@Name='Microsoft-Windows-WLAN-AutoConfig'] and (EventID=11004 or EventID=11005 or EventID=11010 or EventID=11006) and (Level=2 or Level=4)]]
 
 </Select>
 
 	<!-- Wifi Connection Security Authentication Status -->
 <Select Path="Microsoft-Windows-WLAN-AutoConfig/Operational">	
-	*[System[Provider[@Name='Microsoft-Windows-WLAN-AutoConfig']] and (EventID=12011 or EventID=12012 or EventID=12013) and (Level=2 or Level=4)]
+	*[System[Provider[@Name='Microsoft-Windows-WLAN-AutoConfig'] and (EventID=12011 or EventID=12012 or EventID=12013) and (Level=2 or Level=4)]]
 
 </Select>
   </Query>
