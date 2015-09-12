@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Subscription xmlns="http://schemas.microsoft.com/2006/03/windows/events/subscription">
+    <SubscriptionId>Additional LSA Protection</SubscriptionId>
+    <SubscriptionType>SourceInitiated</SubscriptionType>
+    <Description>Events for additional LSA protection issues</Description>
+    <Enabled>false</Enabled>
+    <Uri>http://schemas.microsoft.com/wbem/wsman/1/windows/EventLog</Uri>
+
+    <ConfigurationMode>Custom</ConfigurationMode>
+    <Delivery Mode="Push">
+        <Batching>
+            <MaxItems>1</MaxItems>
+            <MaxLatencyTime>1000</MaxLatencyTime>
+        </Batching>
+        <PushSettings>
+            <Heartbeat Interval="40000"/>
+        </PushSettings>
+    </Delivery>
+
+    <Query>
+        <![CDATA[
+<QueryList>
+  <Query Id="0" Path="Microsoft-Windows-Wininit/Diagnostic">
+    <!-- Code Integrity events -->
+    <Select Path="Microsoft-Windows-CodeIntegrity/Operational">
+      *[System[Provider[@Name='Microsoft-Windows-CodeIntegrity']
+        and (EventID=3033 or EventID=3063 or EventID=3065 or EventID=3066)]]
+    </Select>    
+  </Query>
+
+  <Query Id="1" Path="System">
+    <!-- Process startup events -->
+    <Select Path="System">
+      *[System[Provider[@Name='Microsoft-Windows-Wininit']
+        and (EventID=12)]]
+    </Select>
+  </Query>
+</QueryList>
+        ]]>
+    </Query>
+
+    <ReadExistingEvents>true</ReadExistingEvents>
+    <TransportName>HTTP</TransportName>
+    <ContentFormat>RenderedText</ContentFormat>
+    <Locale Language="en-AU"/>
+    <LogFile>ForwardedEvents</LogFile>
+    <PublisherName>Microsoft-Windows-EventCollector</PublisherName>
+    <AllowedSourceNonDomainComputers></AllowedSourceNonDomainComputers>
+    <AllowedSourceDomainComputers>O:NSG:BAD:P(A;;GA;;;DC)S:</AllowedSourceDomainComputers>
+</Subscription>
