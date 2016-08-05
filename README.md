@@ -11,6 +11,7 @@ NSA Information Assurance has a security guide called [Spotting the Adversary wi
 ## Links
 * [Use Windows Event Forwarding to help with intrusion detection](https://technet.microsoft.com/itpro/windows/keep-secure/use-windows-event-forwarding-to-assist-in-instrusion-detection)
 * [Windows 10 and Windows Server 2016 security auditing and monitoring reference](https://www.microsoft.com/en-us/download/details.aspx?id=52630)
+* [Microsoft Sysmon Tool](https://technet.microsoft.com/en-us/sysinternals/sysmon)
 * https://aka.ms/wef
 
 ## License
