@@ -4,34 +4,85 @@
       "description": "Application whitelisting events should be collected to look for applications that have been blocked from execution. Any blocked applications could be malware or users trying to run unapproved software. Software Restriction Policies (SRP) is supported on Windows XP and above. The AppLocker feature is available for Windows 7 and above Enterprise and Ultimate editions only. Application Whitelisting events can be collected if SRP or AppLocker are actively being used on the network.",
       "events": {
         "AppLocker Block": {
+          "8002": {
+            "level": "Information",
+            "eventlog": "Microsoft-Windows-AppLocker/EXE and DLL",
+            "eventsource": "Microsoft-Windows-AppLocker",
+            "notes": "Configured to audit process starts."
+          },
           "8003": {
             "level": "Error",
             "eventlog": "Microsoft-Windows-AppLocker/EXE and DLL",
-            "eventsource": "Microsoft-Windows-AppLocker"
+            "eventsource": "Microsoft-Windows-AppLocker",
+            "notes": ""
           },
           "8004": {
             "level": "Warning",
             "eventlog": "Microsoft-Windows-AppLocker/EXE and DLL",
-            "eventsource": "Microsoft-Windows-AppLocker"
+            "eventsource": "Microsoft-Windows-AppLocker",
+            "notes": ""
+          }
+        },
+        "Script or Installer ran": {
+          "8005": {
+            "level": "Information",
+            "eventlog": "Microsoft-Windows-AppLocker/MSI and Script",
+            "eventsource": "Microsoft-Windows-AppLocker",
+            "notes": "Scripts and Installers run"
           }
         },
         "AppLocker Warning": {
           "8006": {
             "level": "Error",
             "eventlog": "Microsoft-Windows-AppLocker/MSI and Script",
-            "eventsource": "Microsoft-Windows-AppLocker"
+            "eventsource": "Microsoft-Windows-AppLocker",
+            "notes": ""
           },
           "8007": {
             "level": "Warning",
             "eventlog": "Microsoft-Windows-AppLocker/MSI and Script",
-            "eventsource": "Microsoft-Windows-AppLocker"
+            "eventsource": "Microsoft-Windows-AppLocker",
+            "notes": ""
+          }
+        },
+        "Application Ran": {
+          "8020": {
+            "level": "Information",
+            "eventlog": "Microsoft-Windows-AppLocker/Packaged app-Execution",
+            "eventsource": "Microsoft-Windows-AppLocker",
+            "notes": "Modern app run"
+          }
+        },
+        "Application Installed": {
+          "8023": {
+            "level": "Information",
+            "eventlog": "Microsoft-Windows-AppLocker/Packaged app-Deployment",
+            "eventsource": "Microsoft-Windows-AppLocker",
+            "notes": "Modern app install"
           }
         },
         "SRP Block": {
           "865, 866, 867, 868, 882": {
             "level": "Warning",
             "eventlog": "Application",
-            "eventsource": "Microsoft-Windows-SoftwareRestrictionPolicies"
+            "eventsource": "Microsoft-Windows-SoftwareRestrictionPolicies",
+            "notes": ""
+          }
+        },
+        "Process Created": {
+          "4688": {
+            "level": "Information",
+            "eventlog": "Security",
+            "eventsource": "Microsoft-Windows-Security-Auditing",
+            "notes": "Process Created"
+          }
+        },
+        "Process Terminated": {
+          "4689": {
+            "level": "Information",
+            "eventlog": "Security",
+            "eventsource": "Microsoft-Windows-Security-Auditing",
+            "notes": "Process Terminated"
           }
         }
       }
@@ -39,44 +90,58 @@
     "Application Crashes": {
       "description": "Application crashes may warrant investigation to determine if the crash is malicious or benign. Categories of crashes include Blue Screen of Death (BSOD), Windows Error Reporting (WER), Application Crash and Application Hang events. If the organization is actively using the Microsoft Enhanced Mitigation Experience Toolkit (EMET), then EMET logs can also be collected.",
       "events": {
+        "App Crash": {
+          "1000": {
+            "level": "Error",
+            "eventlog": "Application",
+            "eventsource": "Application Error",
+            "notes": "Application Crashed"
+          }
+        },
         "App Error": {
           "1000": {
             "level": "Error",
             "eventlog": "Application",
-            "eventsource": "Application Error"
+            "eventsource": "Application Error",
+            "notes": ""
           }
         },
         "App Hang": {
           "1002": {
             "level": "Error",
             "eventlog": "Application",
-            "eventsource": "Application Hang"
+            "eventsource": "Application Hang",
+            "notes": ""
           }
         },
         "BSOD": {
           "1001": {
             "level": "Error",
             "eventlog": "System",
-            "eventsource": "Microsoft-Windows-WER-SystemErrorReporting"
+            "eventsource": "Microsoft-Windows-WER-SystemErrorReporting",
+            "notes": ""
           }
         },
         "WER": {
           "1001": {
-            "level": "Informational",
+            "level": "Information",
             "eventlog": "Application",
-            "eventsource": "Windows Error Reporting"
+            "eventsource": "Windows Error Reporting",
+            "notes": ""
           }
         },
         "EMET": {
           "1": {
             "level": "Warning",
             "eventlog": "Application",
-            "eventsource": "EMET"
+            "eventsource": "EMET",
+            "notes": ""
           },
           "2": {
             "level": "Error",
             "eventlog": "Application",
-            "eventsource": "EMET"
+            "eventsource": "EMET",
+            "notes": ""
           }
         }
       }
@@ -88,7 +153,8 @@
           "7022, 7023, 7024, 7026, 7031, 7032, 7034": {
             "level": "Error",
             "eventlog": "System",
-            "eventsource": "Service Control Manager"
+            "eventsource": "Service Control Manager",
+            "notes": ""
           }
         }
       }
@@ -100,14 +166,16 @@
           "20, 24, 25, 31, 34, 35": {
             "level": "Error",
             "eventlog": "Microsoft-Windows-WindowsUpdateClient/Operational",
-            "eventsource": "Microsoft-Windows-WindowsUpdateClient"
+            "eventsource": "Microsoft-Windows-WindowsUpdateClient",
+            "notes": ""
           }
         },
         "Hotpatching Failed": {
           "1009": {
-            "level": "Informational",
+            "level": "Information",
             "eventlog": "Setup",
-            "eventsource": "Microsoft-Windows-Servicing"
+            "eventsource": "Microsoft-Windows-Servicing",
+            "notes": ""
           }
         }
       }
@@ -117,30 +185,34 @@
       "events": {
         "Firewall Rule Add": {
           "2004": {
-            "level": "Informational",
+            "level": "Information",
             "eventlog": "Microsoft-Windows-Windows Firewall With Advanced Security/Firewall",
-            "eventsource": "Microsoft-Windows-Windows Firewall With Advanced Security"
+            "eventsource": "Microsoft-Windows-Windows Firewall With Advanced Security",
+            "notes": ""
           }
         },
         "Firewall Rule Change": {
           "2005": {
-            "level": "Informational",
+            "level": "Information",
             "eventlog": "Microsoft-Windows-Windows Firewall With Advanced Security/Firewall",
-            "eventsource": "Microsoft-Windows-Windows Firewall With Advanced Security"
+            "eventsource": "Microsoft-Windows-Windows Firewall With Advanced Security",
+            "notes": ""
           }
         },
         "Firewall Rules Deleted": {
           "2006, 2033": {
-            "level": "Informational",
+            "level": "Information",
             "eventlog": "Microsoft-Windows-Windows Firewall With Advanced Security/Firewall",
-            "eventsource": "Microsoft-Windows-Windows Firewall With Advanced Security"
+            "eventsource": "Microsoft-Windows-Windows Firewall With Advanced Security",
+            "notes": ""
           }
         },
         "Firewall Failed to load Group Policy": {
           "2009": {
             "level": "Error",
             "eventlog": "Microsoft-Windows-Windows Firewall With Advanced Security/Firewall",
-            "eventsource": "Microsoft-Windows-Windows Firewall With Advanced Security"
+            "eventsource": "Microsoft-Windows-Windows Firewall With Advanced Security",
+            "notes": ""
           }
         }
       }
@@ -150,14 +222,24 @@
       "events": {
         "Event Log was Cleared": {
           "104": {
-            "level": "Informational",
+            "level": "Information",
             "eventlog": "System",
-            "eventsource": "Microsoft-Windows-Eventlog"
+            "eventsource": "Microsoft-Windows-Eventlog",
+            "notes": ""
           },
           "1102": {
-            "level": "Informational",
+            "level": "Information",
             "eventlog": "Security",
-            "eventsource": "Microsoft-Windows-Eventlog"
+            "eventsource": "Microsoft-Windows-Eventlog",
+            "notes": ""
+          }
+        },
+        "Event Log Service Shutdown": {
+          "1100": {
+            "level": "Information",
+            "eventlog": "Security",
+            "eventsource": "Microsoft-Windows-EventLog",
+            "notes": "(Security Log) Event Log Service Shutdown"
           }
         }
       }
@@ -167,65 +249,82 @@
       "events": {
         "New Kernel Filter Driver": {
           "6": {
-            "level": "Informational",
+            "level": "Information",
             "eventlog": "System",
-            "eventsource": "Microsoft-Windows-FilterManager"
+            "eventsource": "Microsoft-Windows-FilterManager",
+            "notes": ""
           }
         },
         "New Windows Service": {
           "7045": {
-            "level": "Informational",
+            "level": "Information",
             "eventlog": "System",
-            "eventsource": "Microsoft-Windows-FilterManager"
+            "eventsource": "Microsoft-Windows-FilterManager",
+            "notes": ""
+          }
+        },
+        "Service Start Failure": {
+          "7000": {
+            "level": "Error",
+            "eventlog": "System",
+            "eventsource": "Service Control Manager",
+            "notes": "Service Start Failure"
           }
         },
         "New MSI File Installed": {
           "1022, 1033": {
-            "level": "Informational",
+            "level": "Information",
             "eventlog": "Application",
-            "eventsource": "MsiInstaller"
+            "eventsource": "MsiInstaller",
+            "notes": ""
           }
         },
         "New Application Installation": {
           "903, 904": {
-            "level": "Informational",
+            "level": "Information",
             "eventlog": "Microsoft-Windows-Application-Experience/Program-Inventory",
-            "eventsource": "Microsoft-Windows-Application-Experience"
+            "eventsource": "Microsoft-Windows-Application-Experience",
+            "notes": ""
           }
         },
         "Updated Application": {
           "905, 906": {
-            "level": "Informational",
+            "level": "Information",
             "eventlog": "Microsoft-Windows-Application-Experience/Program-Inventory",
-            "eventsource": "Microsoft-Windows-Application-Experience"
+            "eventsource": "Microsoft-Windows-Application-Experience",
+            "notes": ""
           }
         },
         "Removed Application": {
           "907, 908": {
-            "level": "Informational",
+            "level": "Information",
             "eventlog": "Microsoft-Windows-Application-Experience/Program-Inventory",
-            "eventsource": "Microsoft-Windows-Application-Experience"
+            "eventsource": "Microsoft-Windows-Application-Experience",
+            "notes": ""
           }
         },
         "Summary of Software Activities": {
           "800": {
-            "level": "Informational",
+            "level": "Information",
             "eventlog": "Microsoft-Windows-Application-Experience/Program-Inventory",
-            "eventsource": "Microsoft-Windows-Application-Experience"
+            "eventsource": "Microsoft-Windows-Application-Experience",
+            "notes": ""
           }
         },
         "Update Packages Installed": {
           "2": {
-            "level": "Informational",
+            "level": "Information",
             "eventlog": "Setup",
-            "eventsource": "Microsoft-Windows-Servicing"
+            "eventsource": "Microsoft-Windows-Servicing",
+            "notes": ""
           }
         },
         "Windows Update Installed": {
           "19": {
-            "level": "Informational",
+            "level": "Information",
             "eventlog": "System",
-            "eventsource": "Microsoft-Windows-WindowsUpdateClient"
+            "eventsource": "Microsoft-Windows-WindowsUpdateClient",
+            "notes": ""
           }
         }
       }
@@ -233,46 +332,220 @@
     "Account Usage": {
       "description": ["User account information can be collected and audited. Tracking local account usage can help detect Pass the Hash activity and other unauthorized account usage. Additional information such as remote desktop logins, users added to privileged groups, and account lockouts can also be tracked. User accounts being promoted to privileged groups should be audited very closely to ensure that users are in fact supposed to be in a privileged group. Unauthorized membership in privileged groups is a strong indicator that malicious activity has occurred.", "Lockout events for domain accounts are generated on the domain controller whereas lockout events for local accounts are generated on the local computer."],
       "events": {
+        "Temp Profile Logon": {
+          "1511": {
+            "level": "Error",
+            "eventlog": "Application",
+            "eventsource": "Microsoft-Windows-User Profiles Service",
+            "notes": "User Logging on with Temporary Profile"
+          }
+        },
+        "Create Profile failed": {
+          "1518": {
+            "level": "Error",
+            "eventlog": "Application",
+            "eventsource": "Microsoft-Windows-User Profiles Service",
+            "notes": "Cannot Create profile, using temporary profile"
+          }
+        },
         "Account Lockouts": {
           "4740": {
-            "level": "Informational",
+            "level": "Information",
             "eventlog": "Security",
-            "eventsource": "Microsoft-Windows-Security-Auditing"
+            "eventsource": "Microsoft-Windows-Security-Auditing",
+            "notes": ""
+          }
+        },
+        "Credential Authentication": {
+          "4776": {
+            "level": "Information",
+            "eventlog": "Security",
+            "eventsource": "Microsoft-Windows-Security-Auditing",
+            "notes": "Credential Authentication"
           }
         },
         "User Added to Privileged Group": {
           "4728, 4732, 4756": {
-            "level": "Informational",
+            "level": "Information",
             "eventlog": "Security",
-            "eventsource": "Microsoft-Windows-Security-Auditing"
+            "eventsource": "Microsoft-Windows-Security-Auditing",
+            "notes": ""
           }
         },
         "Security-Enabled group Modification": {
           "4735": {
-            "level": "Informational",
+            "level": "Information",
             "eventlog": "Security",
-            "eventsource": "Microsoft-Windows-Security-Auditing"
+            "eventsource": "Microsoft-Windows-Security-Auditing",
+            "notes": ""
           }
         },
         "Successful User Account Login": {
           "4624": {
-            "level": "Informational",
+            "level": "Information",
             "eventlog": "Security",
-            "eventsource": "Microsoft-Windows-Security-Auditing"
+            "eventsource": "Microsoft-Windows-Security-Auditing",
+            "notes": ""
           }
         },
         "Failed User Account Login": {
           "4625": {
-            "level": "Informational",
+            "level": "Information",
             "eventlog": "Security",
-            "eventsource": "Microsoft-Windows-Security-Auditing"
+            "eventsource": "Microsoft-Windows-Security-Auditing",
+            "notes": ""
+          }
+        },
+        "Logoff Event": {
+          "4634": {
+            "level": "Information",
+            "eventlog": "Security",
+            "eventsource": "Microsoft-Windows-Security-Auditing",
+            "notes": "Logoff events"
+          }
+        },
+        "Logon with Special Privs": {
+          "4672": {
+            "level": "Information",
+            "eventlog": "Security",
+            "eventsource": "Microsoft-Windows-Security-Auditing",
+            "notes": "Special Privs assigned to Logon"
+          }
+        },
+        "User Right Assigned": {
+          "4704": {
+            "level": "Information",
+            "eventlog": "Security",
+            "eventsource": "Microsoft-Windows-Security-Auditing",
+            "notes": "A user right was assigned"
+          }
+        },
+        "Account Name Changed": {
+          "4781": {
+            "level": "Information",
+            "eventlog": "Security",
+            "eventsource": "Microsoft-Windows-Security-Auditing",
+            "notes": "The name of an account was changed"
+          }
+        },
+        "Password Policy Checking API called": {
+          "4793": {
+            "level": "Information",
+            "eventlog": "Security",
+            "eventsource": "Microsoft-Windows-Security-Auditing",
+            "notes": "The Password Policy Checking API was called"
+          }
+        },
+        "Credentials backed up": {
+          "5376": {
+            "level": "Information",
+            "eventlog": "Security",
+            "eventsource": "Microsoft-Windows-Security-Auditing",
+            "notes": "Credential Manager credentials were backed up"
+          }
+        },
+        "Credentials restored": {
+          "5377": {
+            "level": "Information",
+            "eventlog": "Security",
+            "eventsource": "Microsoft-Windows-Security-Auditing",
+            "notes": "Credential Manager credentials were restored from a backup"
+          }
+        },
+        "SID History added to Account": {
+          "4765": {
+            "level": "Information",
+            "eventlog": "Security",
+            "eventsource": "Microsoft-Windows-Security-Auditing",
+            "notes": "SID History was added to an account"
+          }
+        },
+        "SID History add attempted on Account": {
+          "4766": {
+            "level": "Information",
+            "eventlog": "Security",
+            "eventsource": "Microsoft-Windows-Security-Auditing",
+            "notes": "An attempt to add SID History to an account failed."
+          }
+        },
+        "Group Assigned to new Session": {
+          "300": {
+            "level": "Information",
+            "eventlog": "Microsoft-Windows-LSA/Operational",
+            "eventsource": "LsaSrv",
+            "notes": "Groups assigned to new Logon session"
+          }
+        },
+        "New User Account Created": {
+          "4720": {
+            "level": "Information",
+            "eventlog": "Security",
+            "eventsource": "Microsoft-Windows-Security-Auditing",
+            "notes": "New user account created. May be indicative of malicious activity or misuse."
+          }
+        },
+        "New User Account Enabled": {
+          "4722": {
+            "level": "Information",
+            "eventlog": "Security",
+            "eventsource": "Microsoft-Windows-Security-Auditing",
+            "notes": "A user account was enabled"
+          }
+        },
+        "User Account Unlocked": {
+          "4767": {
+            "level": "Information",
+            "eventlog": "Security",
+            "eventsource": "Microsoft-Windows-Security-Auditing",
+            "notes": "A user account was unlocked"
+          }
+        },
+        "Password Hash Accessed": {
+          "4782": {
+            "level": "Information",
+            "eventlog": "Security",
+            "eventsource": "Microsoft-Windows-Security-Auditing",
+            "notes": "The password hash of an account was accessed"
+          }
+        },
+        "User Account Deleted": {
+          "4726": {
+            "level": "Information",
+            "eventlog": "Security",
+            "eventsource": "Microsoft-Windows-Security-Auditing",
+            "notes": "User Account Deleted"
+          }
+        },
+        "Security-enabled Group Created": {
+          "4731": {
+            "level": "Information",
+            "eventlog": "Security",
+            "eventsource": "Microsoft-Windows-Security-Auditing",
+            "notes": "A security-enabled local group was created"
+          }
+        },
+        "User Account Disabled": {
+          "4725": {
+            "level": "Information",
+            "eventlog": "Security",
+            "eventsource": "Microsoft-Windows-Security-Auditing",
+            "notes": "User Account Disabled"
+          }
+        },
+        "Account removed from Local Sec. Grp.": {
+          "4733": {
+            "level": "Information",
+            "eventlog": "Security",
+            "eventsource": "Microsoft-Windows-Security-Auditing",
+            "notes": "Account removed from Local Security Group"
           }
         },
         "Account Login with Explicit Credentials": {
           "4648": {
-            "level": "Informational",
+            "level": "Information",
             "eventlog": "Security",
-            "eventsource": "Microsoft-Windows-Security-Auditing"
+            "eventsource": "Microsoft-Windows-Security-Auditing",
+            "notes": ""
           }
         }
       }
@@ -282,30 +555,34 @@
       "events": {
         "Detected an invalid image hash of a file": {
           "5038": {
-            "level": "Informational",
+            "level": "Information",
             "eventlog": "Security",
-            "eventsource": "Microsoft-Windows-Security-Auditing"
+            "eventsource": "Microsoft-Windows-Security-Auditing",
+            "notes": ""
           }
         },
         "Detected an invalid page hash of an image file": {
           "6281": {
-            "level": "Informational",
+            "level": "Information",
             "eventlog": "Security",
-            "eventsource": "Microsoft-Windows-Security-Auditing"
+            "eventsource": "Microsoft-Windows-Security-Auditing",
+            "notes": ""
           }
         },
         "Code Integrity Check": {
           "3001, 3002, 3003, 3004, 3010, 3023": {
             "level": "Warning, Error",
             "eventlog": "Microsoft-Windows-CodeIntegrity/Operational",
-            "eventsource": "Microsoft-Windows-CodeIntegrity"
+            "eventsource": "Microsoft-Windows-CodeIntegrity",
+            "notes": ""
           }
         },
         "Failed Kernel Driver Loading": {
           "219": {
             "level": "Warning",
             "eventlog": "System",
-            "eventsource": "Microsoft-Windows-Kernel-PnP"
+            "eventsource": "Microsoft-Windows-Kernel-PnP",
+            "notes": ""
           }
         }
       }
@@ -317,21 +594,24 @@
           "1125": {
             "level": "Error",
             "eventlog": "System",
-            "eventsource": "Microsoft-Windows-GroupPolicy"
+            "eventsource": "Microsoft-Windows-GroupPolicy",
+            "notes": ""
           }
         },
         "Generic Internal Error": {
           "1126": {
             "level": "Error",
             "eventlog": "System",
-            "eventsource": "Microsoft-Windows-GroupPolicy"
+            "eventsource": "Microsoft-Windows-GroupPolicy",
+            "notes": ""
           }
         },
         "Group Policy Application Failed due to Connectivity": {
           "1129": {
             "level": "Error",
             "eventlog": "System",
-            "eventsource": "Microsoft-Windows-GroupPolicy"
+            "eventsource": "Microsoft-Windows-GroupPolicy",
+            "notes": ""
           }
         }
       }
@@ -343,63 +623,104 @@
           "1005": {
             "level": "Error",
             "eventlog": "Microsoft-Windows-Windows Defender/Operational",
-            "eventsource": "Microsoft-Windows-Windows Defender"
+            "eventsource": "Microsoft-Windows-Windows Defender",
+            "notes": ""
           }
         },
         "Detected Malware": {
-          "1006": {
+          "1006, 1116": {
             "level": "Warning",
             "eventlog": "Microsoft-Windows-Windows Defender/Operational",
-            "eventsource": "Microsoft-Windows-Windows Defender"
+            "eventsource": "Microsoft-Windows-Windows Defender",
+            "notes": ""
           }
         },
         "Action on Malware Failed": {
           "1008": {
             "level": "Error",
             "eventlog": "Microsoft-Windows-Windows Defender/Operational",
-            "eventsource": "Microsoft-Windows-Windows Defender"
+            "eventsource": "Microsoft-Windows-Windows Defender",
+            "notes": ""
+          }
+        },
+        "File Restored from Quarantine": {
+          "1009": {
+            "level": "Information",
+            "eventlog": "Microsoft-Windows-Windows Defender/Operational",
+            "eventsource": "Microsoft-Windows-Windows Defender",
+            "notes": "Restored file from quarantine"
           }
         },
         "Failed to remove item from quarantine": {
           "1010": {
             "level": "Error",
             "eventlog": "Microsoft-Windows-Windows Defender/Operational",
-            "eventsource": "Microsoft-Windows-Windows Defender"
+            "eventsource": "Microsoft-Windows-Windows Defender",
+            "notes": ""
+          }
+        },
+        "Malware Removed": {
+          "1007, 1117": {
+            "level": "Information",
+            "eventlog": "Microsoft-Windows-Windows Defender/Operational",
+            "eventsource": "Microsoft-Windows-Windows Defender",
+            "notes": "Malware removal action taken"
+          }
+        },
+        "Malware Removal Error": {
+          "1118": {
+            "level": "Information",
+            "eventlog": "Microsoft-Windows-Windows Defender/Operational",
+            "eventsource": "Microsoft-Windows-Windows Defender",
+            "notes": "Malware removal action taken with non-critical error"
+          }
+        },
+        "Malware Removal Fatal Error": {
+          "1119": {
+            "level": "Error",
+            "eventlog": "Microsoft-Windows-Windows Defender/Operational",
+            "eventsource": "Microsoft-Windows-Windows Defender",
+            "notes": "Malware removal action attempted with critical error"
           }
         },
         "Failed to update signatures": {
           "2001": {
             "level": "Error",
             "eventlog": "Microsoft-Windows-Windows Defender/Operational",
-            "eventsource": "Microsoft-Windows-Windows Defender"
+            "eventsource": "Microsoft-Windows-Windows Defender",
+            "notes": ""
           }
         },
         "Failed to update engine": {
           "2003": {
             "level": "Error",
             "eventlog": "Microsoft-Windows-Windows Defender/Operational",
-            "eventsource": "Microsoft-Windows-Windows Defender"
+            "eventsource": "Microsoft-Windows-Windows Defender",
+            "notes": ""
           }
         },
         "Reverting to last known good set of signatures": {
           "2004": {
             "level": "Warning",
             "eventlog": "Microsoft-Windows-Windows Defender/Operational",
-            "eventsource": "Microsoft-Windows-Windows Defender"
+            "eventsource": "Microsoft-Windows-Windows Defender",
+            "notes": ""
           }
         },
         "Real-Time Protection failed": {
           "3002": {
             "level": "Error",
             "eventlog": "Microsoft-Windows-Windows Defender/Operational",
-            "eventsource": "Microsoft-Windows-Windows Defender"
+            "eventsource": "Microsoft-Windows-Windows Defender",
+            "notes": ""
           }
         },
         "Unexpected Error": {
           "5008": {
             "level": "Error",
             "eventlog": "Microsoft-Windows-Windows Defender/Operational",
-            "eventsource": "Microsoft-Windows-Windows Defender"
+            "eventsource": "Microsoft-Windows-Windows Defender",
+            "notes": ""
           }
         }
       }
@@ -409,73 +730,84 @@
       "events": {
         "Network Connection and Disconnection Status (Wired and Wireless)": {
           "10000, 10001": {
-            "level": "Informational",
+            "level": "Information",
             "eventlog": "Microsoft-Windows-NetworkProfile/Operational",
-            "eventsource": "Microsoft-Windows-NetworkProfile"
+            "eventsource": "Microsoft-Windows-NetworkProfile",
+            "notes": ""
           }
         },
         "Starting a Wireless connection": {
           "8000, 8011": {
-            "level": "Informational",
+            "level": "Information",
             "eventlog": "Microsoft-Windows-WLAN-AutoConfig/Operational",
-            "eventsource": "Microsoft-Windows-WLAN-AutoConfig"
+            "eventsource": "Microsoft-Windows-WLAN-AutoConfig",
+            "notes": ""
           }
         },
         "Successfully connected to a Wireless connection": {
           "8001": {
-            "level": "Informational",
+            "level": "Information",
             "eventlog": "Microsoft-Windows-WLAN-AutoConfig/Operational",
-            "eventsource": "Microsoft-Windows-WLAN-AutoConfig"
+            "eventsource": "Microsoft-Windows-WLAN-AutoConfig",
+            "notes": ""
           }
         },
         "Disconnect from Wireless connection": {
           "8003": {
-            "level": "Informational",
+            "level": "Information",
             "eventlog": "Microsoft-Windows-WLAN-AutoConfig/Operational",
-            "eventsource": "Microsoft-Windows-WLAN-AutoConfig"
+            "eventsource": "Microsoft-Windows-WLAN-AutoConfig",
+            "notes": ""
           }
         },
         "Wireless Association Status": {
           "11000, 11001": {
-            "level": "Informational",
+            "level": "Information",
             "eventlog": "Microsoft-Windows-WLAN-AutoConfig/Operational",
-            "eventsource": "Microsoft-Windows-WLAN-AutoConfig"
+            "eventsource": "Microsoft-Windows-WLAN-AutoConfig",
+            "notes": ""
           },
           "11002": {
             "level": "Error",
             "eventlog": "Microsoft-Windows-WLAN-AutoConfig/Operational",
-            "eventsource": "Microsoft-Windows-WLAN-AutoConfig"
+            "eventsource": "Microsoft-Windows-WLAN-AutoConfig",
+            "notes": ""
           }
         },
         "Wireless Security Started, Stopped, Successful, or Failed": {
           "11004, 11005": {
-            "level": "Informational",
+            "level": "Information",
             "eventlog": "Microsoft-Windows-WLAN-AutoConfig/Operational",
-            "eventsource": "Microsoft-Windows-WLAN-AutoConfig"
+            "eventsource": "Microsoft-Windows-WLAN-AutoConfig",
+            "notes": ""
           },
           "11010, 11006": {
             "level": "Error",
             "eventlog": "Microsoft-Windows-WLAN-AutoConfig/Operational",
-            "eventsource": "Microsoft-Windows-WLAN-AutoConfig"
+            "eventsource": "Microsoft-Windows-WLAN-AutoConfig",
+            "notes": ""
           }
         },
         "Wireless Connection Failed": {
           "8002": {
             "level": "Error",
             "eventlog": "Microsoft-Windows-WLAN-AutoConfig/Operational",
-            "eventsource": "Microsoft-Windows-WLAN-AutoConfig"
+            "eventsource": "Microsoft-Windows-WLAN-AutoConfig",
+            "notes": ""
           }
         },
         "Wireless Authentication Started and Failed": {
           "12011, 12012": {
-            "level": "Informational",
+            "level": "Information",
             "eventlog": "Microsoft-Windows-WLAN-AutoConfig/Operational",
-            "eventsource": "Microsoft-Windows-WLAN-AutoConfig"
+            "eventsource": "Microsoft-Windows-WLAN-AutoConfig",
+            "notes": ""
           },
           "12013": {
             "level": "Error",
             "eventlog": "Microsoft-Windows-WLAN-AutoConfig/Operational",
-            "eventsource": "Microsoft-Windows-WLAN-AutoConfig"
+            "eventsource": "Microsoft-Windows-WLAN-AutoConfig",
+            "notes": ""
           }
         }
       }
@@ -485,25 +817,28 @@
       "events": {
         "New Device Information": {
           "43": {
-            "level": "Informational",
+            "level": "Information",
             "eventlog": "Microsoft-Windows-USB-USBHUB3-Analytic",
             "eventsource": "Microsoft-Windows-USB-USBHUB3",
+            "notes": "",
             "footnote": "This event is generated for any USB 2.0 and 3.0 devices being inserted into a USB 3.0 port. The respective event log was not introduced until Windows 8."
           }
         },
         "New Mass Storage Installation": {
           "400": {
-            "level": "Informational",
+            "level": "Information",
             "eventlog": "Microsoft-Windows-Kernel-PnP/Device Configuration",
             "eventsource": "Microsoft-Windows-Kernel-PnP",
+            "notes": "",
             "footnote": "This event is generated for any USB device being inserted into any USB port (2.0 or 3.0). However, this event is only generated once (the first time the device is introduced to the system."
           }
         },
         "New Mass Storage Installation": {
           "400, 410": {
-            "level": "Informational",
+            "level": "Information",
             "eventlog": "Microsoft-Windows-Kernel-PnP/Device Configuration",
             "eventsource": "Microsoft-Windows-Kernel-PnP",
+            "notes": "",
             "footnote": "This event is generated for any USB device being inserted into any USB port (2.0 or 3.0). However, this event is only generated once (the first time the device is introduced to the system."
           }
         }
@@ -514,16 +849,17 @@
       "events": {
         "Printing Document": {
           "307": {
-            "level": "Informational",
+            "level": "Information",
             "eventlog": "Microsoft-Windows-PrintService/Operational",
-            "eventsource": "Microsoft-Windows-PrintService"
+            "eventsource": "Microsoft-Windows-PrintService",
+            "notes": ""
           }
         }
       }
     },
     "Pass the Hash Detection": {
       "type": "authentication_pkg",
-      "description": ["Tracking user accounts for detecting Pass the Hash (PtH) requires creating a custom view with XML to configure more advanced filtering options. The event query language is based on XPath. The recommended **QueryList** below is limited in detecting PtH attacks. These queries focus on discovering lateral movement by an attacker using local accounts that are not part of a domain. The **QueryList** captures events that show a local account attempting to connect remotely to another machine not part of the domain. This event is a rarity so any occurrence should be treated as suspicious.", "These XPath queries below are used for the Event Viewer's **Custom Views**.", "The successful use of PtH for lateral movement between workstations would trigger event ID 4624, with an event level of Informational, from the Security log. This behavior would be a **LogonType** of 3 using NTLM authentication where it is not a domain logon and not the ANONYMOUS LOGON account. To clearly summarize the event that is being collected, see event 4624 below.", "In the **QueryList** below, substitute the <DOMAIN NAME> section with the desired domain name.", "A failed logon attempt when trying to move laterally using PtH would trigger an event ID 4625. This would have a **LogonType** of 3 using NTLM authentication where it is not a domain logon and not the ANONYMOUS LOGON account. To clearly summarize the event that is being collected, see event 4625 below."],
+      "description": ["Tracking user accounts for detecting Pass the Hash (PtH) requires creating a custom view with XML to configure more advanced filtering options. The event query language is based on XPath. The recommended **QueryList** below is limited in detecting PtH attacks. These queries focus on discovering lateral movement by an attacker using local accounts that are not part of a domain. The **QueryList** captures events that show a local account attempting to connect remotely to another machine not part of the domain. This event is a rarity so any occurrence should be treated as suspicious.", "These XPath queries below are used for the Event Viewer's **Custom Views**.", "The successful use of PtH for lateral movement between workstations would trigger event ID 4624, with an event level of Information, from the Security log. This behavior would be a **LogonType** of 3 using NTLM authentication where it is not a domain logon and not the ANONYMOUS LOGON account. To clearly summarize the event that is being collected, see event 4624 below.", "In the **QueryList** below, substitute the <DOMAIN NAME> section with the desired domain name.", "A failed logon attempt when trying to move laterally using PtH would trigger an event ID 4625. This would have a **LogonType** of 3 using NTLM authentication where it is not a domain logon and not the ANONYMOUS LOGON account. To clearly summarize the event that is being collected, see event 4625 below."],
       "xml": ["<QueryList>",
 "  <Query Id=\"0\" Path=\"Forwarded Events\">",
 "    <Select Path=\"ForwardedEvents\">",
@@ -597,6 +933,598 @@
             "level": "Information",
             "logontype": "10",
             "authenticationpkg": "N/A"
+          }
+        }
+      }
+    },
+    "DNS/Directory Services": {
+      "description": ["Malicious or misused software can often attempt to resolve blacklisted or suspicious domain names. The collection of DNS queries and responses are recommended in order to enable discovery of compromise or intrusion through security analytics.", "A number of the below event IDs will only be recorded with enhanced auditing enabled. See [Network Forensics with Windows DNS Analytical Logging](http://blogs.technet.com/b/teamdhcp/archive/2015/11/24/network-forensics-with-windows-dns-analytical-logging.aspx) for more information."],
+      "events": {
+        "DNS Request/Response": {
+          "256, 257": {
+            "level": "Information",
+            "eventlog": "Microsoft-Windows-DNSServer/Analytical",
+            "eventsource": "Microsoft-Windows-DNSServer",
+            "notes": "Requires enhanced auditing enabled."
+          }
+        },
+        "DNS Query Complete": {
+          "3008": {
+            "level": "Information",
+            "eventlog": "Microsoft-Windows-DNS-Client/Operational",
+            "eventsource": "Microsoft-Windows-DNS-Client",
+            "notes": "DNS query completed (Application DNS Lookup)"
+          }
+        },
+        "DNS Response Complete": {
+          "3020": {
+            "level": "Information",
+            "eventlog": "Microsoft-Windows-DNS-Client/Operational",
+            "eventsource": "Microsoft-Windows-DNS-Client",
+            "notes": "DNS Query Response (DNS Cache service)"
+          }
+        },
+        "Directory service modified": {
+          "5136": {
+            "level": "Information",
+            "eventlog": "Security",
+            "eventsource": "Microsoft-Windows-Security-Auditing",
+            "notes": "Directory Services object modified"
+          }
+        },
+        "Directory service created": {
+          "5137": {
+            "level": "Information",
+            "eventlog": "Security",
+            "eventsource": "Microsoft-Windows-Security-Auditing",
+            "notes": "A directory service object was created."
+          }
+        },
+        "Directory service recovered": {
+          "5138": {
+            "level": "Information",
+            "eventlog": "Security",
+            "eventsource": "Microsoft-Windows-Security-Auditing",
+            "notes": "A directory service object was undeleted."
+          }
+        },
+        "Directory service moved": {
+          "5139": {
+            "level": "Information",
+            "eventlog": "Security",
+            "eventsource": "Microsoft-Windows-Security-Auditing",
+            "notes": "A directory service object was moved."
+          }
+        },
+        "Directory service deleted": {
+          "5141": {
+            "level": "Information",
+            "eventlog": "Security",
+            "eventsource": "Microsoft-Windows-Security-Auditing",
+            "notes": "Directory Services object deleted"
+          }
+        }
+      }
+    },
+    "PowerShell Activities": {
+      "description": "PowerShell events can be interesting as Powershell is included by default in modern Windows installations. If a PowerShell script is failing, it may indicate misconfiguration, missing files, or malicious activity. Use of the Get-MessageTrackingLog cmdlet can be used to enumerate Exchange Server mail metadata, returning detailed information about the history of each mail message traveling through the server.",
+      "events": {
+        "Exception Raised": {
+          "4103": {
+            "level": "Information",
+            "eventlog": "Microsoft-Windows-Powershell/Operational",
+            "eventsource": "Microsoft-Windows-Powershell",
+            "notes": "PowerShell exception raised."            
+          }
+        },
+        "Get-MessageTrackingLog cmdlet": {
+          "800": {
+            "level": "Information",
+            "eventlog": "Powershell",
+            "eventsource": "Microsoft-Windows-Powershell",
+            "notes": "PowerShell Get-MessageTrackingLog cmdlet ran (legacy)"
+          }
+        },
+        "Remote Connection": {
+          "169": {
+            "level": "Information",
+            "eventlog": "Powershell",
+            "eventsource": "Microsoft-Windows-Powershell",
+            "notes": "PowerShell remoting connection (legacy)"
+          }
+        }
+      }
+    },
+    "Task Scheduler Activities": {
+      "description": "Scheduled tasks can be maliciously created or deleted. The Task Scheduler can be used, for instance, to create tasks that wait for certain preconditions before downloading malicious files or to load malicious software into memory.",
+      "events": {
+        "New Task Registered": {
+          "106": {
+            "level": "Information",
+            "eventlog": "Microsoft-Windows-TaskScheduler/Operational",
+            "eventsource": "Microsoft-Windows-TaskScheduler",
+            "notes": "New Task Registered"
+          }
+        },
+        "Task Deleted": {
+          "141": {
+            "level": "Information",
+            "eventlog": "Microsoft-Windows-TaskScheduler/Operational",
+            "eventsource": "Microsoft-Windows-TaskScheduler",
+            "notes": "Task Deleted"
+          }
+        },
+        "Task Disabled": {
+          "142": {
+            "level": "Information",
+            "eventlog": "Microsoft-Windows-TaskScheduler/Operational",
+            "eventsource": "Microsoft-Windows-TaskScheduler",
+            "notes": "Task Disabled"
+          }
+        },
+        "Task Launched": {
+          "200": {
+            "level": "Information",
+            "eventlog": "Microsoft-Windows-TaskScheduler/Operational",
+            "eventsource": "Microsoft-Windows-TaskScheduler",
+            "notes": "Task Launched"
+          }
+        }
+      }
+    },
+    "Microsoft Cryptography API": {
+      "description": "The Microsoft CryptoAPI can be used for certificate verification and encryption/decryption of data. There are a number of interesting events that should be logged for suspicious behavior or for future auditing.",
+      "events": {
+        "Cert Trust Chain Build Failed": {
+          "11": {
+            "level": "Information",
+            "eventlog": "Microsoft-Windows-CAPI2/Operational",
+            "eventsource": "Microsoft-Windows-CAPI2",
+            "notes": "Certificate Trust chain failure"
+          }
+        },
+        "Private Key Accessed": {
+          "70": {
+            "level": "Information",
+            "eventlog": "Microsoft-Windows-CAPI2/Operational",
+            "eventsource": "Microsoft-Windows-CAPI2",
+            "notes": "Private Key Accessed"
+          }
+        },
+        "X.509 Object": {
+          "90": {
+            "level": "Information",
+            "eventlog": "Microsoft-Windows-CAPI2/Operational",
+            "eventsource": "Microsoft-Windows-CAPI2",
+            "notes": "X.509 Object"
+          }
+        }
+      }
+    },
+    "Certificate Services": {
+      "description": "Certificate Services receives requests for digital certificates over RPC or HTTP. For organizations that do not rely upon external certification authorities, policies and settings can be customized in order to support the organization's requirements. The below events can be collected to ensure expected use.",
+      "events": {
+        "Certificate Revoked": {
+          "4870": {
+            "level": "Information",
+            "eventlog": "Security",
+            "eventsource": "Microsoft-Windows-Security-Auditing",
+            "notes": "Certificate Services revoked a certificate."
+          }
+        },
+        "Certificate Request Extension Changed": {
+          "4873": {
+            "level": "Information",
+            "eventlog": "Security",
+            "eventsource": "Microsoft-Windows-Security-Auditing",
+            "notes": "A certificate request extension changed."
+          }
+        },
+        "Certificate Request Attributes Changed": {
+          "4874": {
+            "level": "Information",
+            "eventlog": "Security",
+            "eventsource": "Microsoft-Windows-Security-Auditing",
+            "notes": "One or more certificate request attributes changed."
+          }
+        },
+        "Certificate Services approved request": {
+          "4887": {
+            "level": "Information",
+            "eventlog": "Security",
+            "eventsource": "Microsoft-Windows-Security-Auditing",
+            "notes": "Certificate Services approved a certificate request and issued a certificate."
+          }
+        },
+        "Certificate Services denied request": {
+          "4888": {
+            "level": "Information",
+            "eventlog": "Security",
+            "eventsource": "Microsoft-Windows-Security-Auditing",
+            "notes": "CA Services request denied"
+          }
+        },
+        "Certificate Manager Settings Changed": {
+          "4890": {
+            "level": "Information",
+            "eventlog": "Security",
+            "eventsource": "Microsoft-Windows-Security-Auditing",
+            "notes": "The certificate manager settings for Certificate Services changed."
+          }
+        },
+        "Certificate Services Configuration Changed": {
+          "4891": {
+            "level": "Information",
+            "eventlog": "Security",
+            "eventsource": "Microsoft-Windows-Security-Auditing",
+            "notes": "A configuration entry changed in Certificate Services."
+          }
+        },
+        "Certificate Services Property Changed": {
+          "4892": {
+            "level": "Information",
+            "eventlog": "Security",
+            "eventsource": "Microsoft-Windows-Security-Auditing",
+            "notes": "A property of Certificate Services changed."
+          }
+        },
+        "Entries Removed from Certificate Database": {
+          "4896": {
+            "level": "Information",
+            "eventlog": "Security",
+            "eventsource": "Microsoft-Windows-Security-Auditing",
+            "notes": "One or more rows have been deleted from the certificate database"
+          }
+        },
+        "Certificate Services Loaded Template": {
+          "4898": {
+            "level": "Information",
+            "eventlog": "Security",
+            "eventsource": "Microsoft-Windows-Security-Auditing",
+            "notes": "Certificate Services Loaded a template"
+          }
+        },
+        "Certificate Services Template Updated": {
+          "4899": {
+            "level": "Information",
+            "eventlog": "Security",
+            "eventsource": "Microsoft-Windows-Security-Auditing",
+            "notes": "A Certificate Services template was updated."
+          }
+        },
+        "Certificate Services Template Security Updated": {
+          "4900": {
+            "level": "Information",
+            "eventlog": "Security",
+            "eventsource": "Microsoft-Windows-Security-Auditing",
+            "notes": "Certificate Services template security was updated."
+          }
+        },
+        "Certificate Services Started": {
+          "4880": {
+            "level": "Information",
+            "eventlog": "Security",
+            "eventsource": "Microsoft-Windows-Security-Auditing",
+            "notes": "Certificate Services Started"
+          }
+        },
+        "Certificate Services Stopped": {
+          "4881": {
+            "level": "Information",
+            "eventlog": "Security",
+            "eventsource": "Microsoft-Windows-Security-Auditing",
+            "notes": "Certificate Services Stopped"
+          }
+        },
+        "Certificate Services Permissions Changed": {
+          "4882": {
+            "level": "Information",
+            "eventlog": "Security",
+            "eventsource": "Microsoft-Windows-Security-Auditing",
+            "notes": "The security permissions for Certificate Services changed."
+          }
+        },
+        "Certificate Services Audit Filter Changed": {
+          "4885": {
+            "level": "Information",
+            "eventlog": "Security",
+            "eventsource": "Microsoft-Windows-Security-Auditing",
+            "notes": "The audit filter for Certificate Services changed."
+          }
+        },
+        "CA Services Request": {
+          "4886": {
+            "level": "Information",
+            "eventlog": "Security",
+            "eventsource": "Microsoft-Windows-Security-Auditing",
+            "notes": "CA Services request received"
+          }
+        },
+        "CA Permissions Corrupted or Missing": {
+          "90": {
+            "level": "Information",
+            "eventlog": "Microsoft-Windows-CertificationAuthority",
+            "eventsource": "Microsoft-Windows-CertificationAuthority",
+            "notes": "Security Permission corrupt or missing"
+          }
+        }
+      }
+    },
+    "Network Policy": {
+      "description": "",
+      "events": {
+        "TS Session Reconnect": {
+          "4778": {
+            "level": "Information",
+            "eventlog": "Security",
+            "eventsource": "Microsoft-Windows-Security-Auditing",
+            "notes": "TS Session Reconnect"
+          }
+        },
+        "TS Session Disconnect": {
+          "4779": {
+            "level": "Information",
+            "eventlog": "Security",
+            "eventsource": "Microsoft-Windows-Security-Auditing",
+            "notes": "TS Session Disconnect"
+          }
+        },
+        "Outbound TS Connect Attempt": {
+          "1024": {
+            "level": "Information",
+            "eventlog": "Microsoft-Windows-TerminalServices-RDPClient/Operational",
+            "eventsource": "Microsoft-Windows-TerminalServices-ClientActiveXCore",
+            "notes": "Outbound TS connection attempt"
+          }
+        },
+        "Role Separation Enabled": {
+          "4897": {
+            "level": "Information",
+            "eventlog": "Security",
+            "eventsource": "Microsoft-Windows-Security-Auditing",
+            "notes": "Role separation enabled"
+          }
+        },
+        "Network Share Created": {
+          "5142": {
+            "level": "Information",
+            "eventlog": "Security",
+            "eventsource": "Microsoft-Windows-Security-Auditing",
+            "notes": "Network Share Created"
+          }
+        },
+        "Network Share Deleted": {
+          "5144": {
+            "level": "Information",
+            "eventlog": "Security",
+            "eventsource": "Microsoft-Windows-Security-Auditing",
+            "notes": "Network Share Deleted"
+          }
+        },
+        "Network Share Checked": {
+          "5145": {
+            "level": "Information",
+            "eventlog": "Security",
+            "eventsource": "Microsoft-Windows-Security-Auditing",
+            "notes": "A network share object was checked to see whether the client can be granted desired access."
+          }
+        },
+        "Wireless 802.1X Auth": {
+          "5632": {
+            "level": "Information",
+            "eventlog": "Security",
+            "eventsource": "Microsoft-Windows-Security-Auditing",
+            "notes": "Wireless 802.1X Auth"
+          }
+        },
+        "Network Policy Server Granted Access": {
+          "6272": {
+            "level": "Information",
+            "eventlog": "Security",
+            "eventsource": "Microsoft-Windows-Security-Auditing",
+            "notes": "(RAS/VPN) Network Policy Server granted access to a user."
+          }
+        },
+        "Network Policy Server Denied Access": {
+          "6273": {
+            "level": "Information",
+            "eventlog": "Security",
+            "eventsource": "Microsoft-Windows-Security-Auditing",
+            "notes": "(RAS/VPN) Network Policy Server denied access to a user."
+          }
+        },
+        "Network Policy Server Discarded Request": {
+          "6274": {
+            "level": "Information",
+            "eventlog": "Security",
+            "eventsource": "Microsoft-Windows-Security-Auditing",
+            "notes": "(RAS/VPN) Network Policy Server discarded the request for a user."
+          }
+        },
+        "Network Policy Server Discarded Accounting Request": {
+          "6275": {
+            "level": "Information",
+            "eventlog": "Security",
+            "eventsource": "Microsoft-Windows-Security-Auditing",
+            "notes": "(RAS/VPN) Network Policy Server discarded the accounting request for a user."
+          }
+        },
+        "Network Policy Server Quarantined User": {
+          "6276": {
+            "level": "Information",
+            "eventlog": "Security",
+            "eventsource": "Microsoft-Windows-Security-Auditing",
+            "notes": "(RAS/VPN) Network Policy Server quarantined a user."
+          }
+        },
+        "Network Policy Server Granted Probationary Access": {
+          "6277": {
+            "level": "Information",
+            "eventlog": "Security",
+            "eventsource": "Microsoft-Windows-Security-Auditing",
+            "notes": "(RAS/VPN) Network Policy Server granted access to a user but put it on probation because the host did not meet the defined health policy."
+          }
+        },
+        "Network Policy Server Granted Full Access": {
+          "6278": {
+            "level": "Information",
+            "eventlog": "Security",
+            "eventsource": "Microsoft-Windows-Security-Auditing",
+            "notes": "(RAS/VPN) Network Policy Server granted full access to a user because the host met the defined health policy."
+          }
+        },
+        "Network Policy Server Locked Account": {
+          "6279": {
+            "level": "Information",
+            "eventlog": "Security",
+            "eventsource": "Microsoft-Windows-Security-Auditing",
+            "notes": "(RAS/VPN) Network Policy Server locked the user account due to repeated failed authentication attempts."
+          }
+        },
+        "Network Policy Server Unlocked Account": {
+          "6280": {
+            "level": "Information",
+            "eventlog": "Security",
+            "eventsource": "Microsoft-Windows-Security-Auditing",
+            "notes": "(RAS/VPN) Network Policy Server unlocked the user account."
+          }
+        },
+        "RADIUS User assigned IP": {
+          "20250": {
+            "level": "Success",
+            "eventlog": "RemoteAccess",
+            "eventsource": "Microsoft-Windows-MPRMSG",
+            "notes": "RADIUS authentication User assigned IP address"
+          }
+        },
+        "RADIUS User Authenticated": {
+          "20274": {
+            "level": "Success",
+            "eventlog": "RemoteAccess",
+            "eventsource": "Microsoft-Windows-MPRMSG",
+            "notes": "RADIUS authentication User successfully authenticated"
+          }
+        },
+        "RADIUS User Disconnected": {
+          "20275": {
+            "level": "Success",
+            "eventlog": "RemoteAccess",
+            "eventsource": "Microsoft-Windows-MPRMSG",
+            "notes": "RADIUS authentication User Disconnected"
+          }
+        },
+        "Network share accessed": {
+          "5140": {
+            "level": "Information",
+            "eventlog": "Security",
+            "eventsource": "Microsoft-Windows-Security-Auditing",
+            "notes": "Network share object accessed"
+          }
+        },
+        "New Trust for Domain": {
+          "4706": {
+            "level": "Information",
+            "eventlog": "Security",
+            "eventsource": "Microsoft-Windows-Security-Auditing",
+            "notes": "A new trust was created to a domain."
+          }
+        },
+        "Kerberos Policy Changed": {
+          "4713": {
+            "level": "Information",
+            "eventlog": "Security",
+            "eventsource": "Microsoft-Windows-Security-Auditing",
+            "notes": "Kerberos policy was changed."
+          }
+        },
+        "Encrypted Data Recovery Policy Changed": {
+          "4714": {
+            "level": "Information",
+            "eventlog": "Security",
+            "eventsource": "Microsoft-Windows-Security-Auditing",
+            "notes": "Encrypted data recovery policy was changed."
+          }
+        },
+        "Trusted Domain Information Modified": {
+          "4716": {
+            "level": "Information",
+            "eventlog": "Security",
+            "eventsource": "Microsoft-Windows-Security-Auditing",
+            "notes": "Trusted domain information was modified."
+          }
+        },
+        "System Audit Policy Changed": {
+          "4719": {
+            "level": "Information",
+            "eventlog": "Security",
+            "eventsource": "Microsoft-Windows-Security-Auditing",
+            "notes": "System audit policy was changed."
+          }
+        },
+        "Kerberos Service Ticket Req. Failed": {
+          "4769": {
+            "level": "Information",
+            "eventlog": "Security",
+            "eventsource": "Microsoft-Windows-Security-Auditing",
+            "notes": "[Failure Event] Kerberos Service Ticket request"
+          }
+        }
+      }
+    },
+    "Boot Events": {
+      "description": "",
+      "events": {
+        "Windows Startup": {
+          "12": {
+            "level": "Information",
+            "eventlog": "System",
+            "eventsource": "Microsoft-Windows-Kernel-General",
+            "notes": "Windows Startup"
+          }
+        },
+        "Windows Shutdown": {
+          "13": {
+            "level": "Information",
+            "eventlog": "System",
+            "eventsource": "Microsoft-Windows-Kernel-General",
+            "notes": "Windows Shutdown"
+          }
+        },
+        "Shutdown Initiate Failed": {
+          "1074": {
+            "level": "Warning",
+            "eventlog": "User32",
+            "eventsource": "User32",
+            "notes": "Shutdown initiate request failed"
+          }
+        }
+      }
+    },
+    "System Integrity": {
+      "description": "",
+      "events": {
+        "System Time Changed": {
+          "4616": {
+            "level": "Information",
+            "eventlog": "Security",
+            "eventsource": "Microsoft-Windows-Security-Auditing",
+            "notes": "System time change may be indicative of attempts to tamper with the system."
+          }
+        },
+        "System Time Changed": {
+          "1": {
+            "level": "Information",
+            "eventlog": "System",
+            "eventsource": "Microsoft-Windows-Kernel-General",
+            "notes": "System time changed"
+          }
+        },
+        "Registry Modification": {
+          "4657": {
+            "level": "Information",
+            "eventlog": "Security",
+            "eventsource": "Microsoft-Windows-Security-Auditing",
+            "notes": "Registry modification"
           }
         }
       }
