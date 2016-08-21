@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Subscription xmlns="http://schemas.microsoft.com/2006/03/windows/events/subscription">
+    <SubscriptionId>Software Changes</SubscriptionId>
+    <SubscriptionType>SourceInitiated</SubscriptionType>
+    <Description>Events for Windows servicing &amp; software changes</Description>
+    <Enabled>true</Enabled>
+    <Uri>http://schemas.microsoft.com/wbem/wsman/1/windows/EventLog</Uri>
+
+    <ConfigurationMode>Custom</ConfigurationMode>
+    <Delivery Mode="Push">
+        <Batching>
+            <MaxItems>1</MaxItems>
+            <MaxLatencyTime>1000</MaxLatencyTime>
+        </Batching>
+        <PushSettings>
+            <Heartbeat Interval="40000"/>
+        </PushSettings>
+    </Delivery>
+
+    <Query>
+        <![CDATA[
+<QueryList>
+  <Query Id="0" Path="Application">
+    <!-- Servicing package installed -->
+    <Select Path="Setup">
+      *[System[Provider[@Name='Microsoft-Windows-Servicing']
+        and Level=0
+        and EventID=2]]
+      and
+      *[UserData[CbsPackageChangeState[IntendedPackageState='Installed']]]
+    </Select>
+
+    <!-- MSI installed -->
+    <Select Path="Application">
+      *[System[Provider[@Name='MsiInstaller']
+        and (EventID=1022 or EventID=1033)]]
+    </Select>
+
+    <!-- Application inventory -->
+    <Select Path="Microsoft-Windows-Application-Experience/Program-Inventory">
+      *[System[Provider[@Name='Microsoft-Windows-Application-Experience']
+        and EventID=800]]
+    </Select>
+
+    <!-- Application installed -->
+    <Select Path="Microsoft-Windows-Application-Experience/Program-Inventory">
+      *[System[Provider[@Name='Microsoft-Windows-Application-Experience']
+        and (EventID=903 or EventID=904)]]
+    </Select>
+
+    <!-- Application updated -->
+    <Select Path="Microsoft-Windows-Application-Experience/Program-Inventory">
+      *[System[Provider[@Name='Microsoft-Windows-Application-Experience']
+        and (EventID=905 or EventID=906)]]
+    </Select>
+
+    <!-- Application removed -->
+    <Select Path="Microsoft-Windows-Application-Experience/Program-Inventory">
+      *[System[Provider[@Name='Microsoft-Windows-Application-Experience']
+        and (EventID=907 or EventID=908)]]
+    </Select>
+  </Query>
+
+  <Query Id="1" Path="System">
+    <!-- Kernel filter driver installed -->
+    <Select Path="System">
+      *[System[Provider[@Name='Microsoft-Windows-FilterManager']
+        and (Level=4 or Level=0)
+        and EventID=6]]
+    </Select>
+
+    <!-- Windows update installed -->
+    <Select Path="System">
+      *[System[Provider[@Name='Microsoft-Windows-WindowsUpdateClient']
+        and EventID=19]]
+    </Select>
+
+    <!-- Service installed -->
+    <Select Path="System">
+      *[System[Provider[@Name='Service Control Manager']
+        and Level=1
+        and EventID=7045]]
+    </Select>
+  </Query>
+</QueryList>
+        ]]>
+    </Query>
+
+    <ReadExistingEvents>true</ReadExistingEvents>
+    <TransportName>HTTP</TransportName>
+    <ContentFormat>RenderedText</ContentFormat>
+    <Locale Language="en-US"/>
+    <LogFile>ForwardedEvents</LogFile>
+    <PublisherName>Microsoft-Windows-EventCollector</PublisherName>
+    <AllowedSourceNonDomainComputers></AllowedSourceNonDomainComputers>
+    <AllowedSourceDomainComputers></AllowedSourceDomainComputers>
+</Subscription>

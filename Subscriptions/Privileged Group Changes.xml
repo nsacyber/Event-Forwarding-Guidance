@@ -1,13 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <Subscription xmlns="http://schemas.microsoft.com/2006/03/windows/events/subscription">
-    <SubscriptionId>DefenderErr</SubscriptionId>
+    <SubscriptionId>Privileged Group Changes</SubscriptionId>
     <SubscriptionType>SourceInitiated</SubscriptionType>
-    <Description>Windows Defender Errors. Targets: Vista+</Description>
+    <Description>Events indicating a security-enabled group was modified</Description>
     <Enabled>true</Enabled>
     <Uri>http://schemas.microsoft.com/wbem/wsman/1/windows/EventLog</Uri>
 
-    <!-- Use Normal (default), Custom, MinLatency, MinBandwidth -->
     <ConfigurationMode>Custom</ConfigurationMode>
-
     <Delivery Mode="Push">
         <Batching>
             <MaxItems>1</MaxItems>
@@ -18,26 +17,33 @@
         </PushSettings>
     </Delivery>
 
-
     <Query>
         <![CDATA[
-            
 <QueryList>
-  <Query Id="0" Path="Microsoft-Windows-Windows Defender/Operational">
-	<!-- Windows Defender Activities -->
-    <Select Path="Microsoft-Windows-Windows Defender/Operational">*[System[Proivder[@Name='Windows Defender'] and (Level=2 or Level=3) and (EventID=1005 or EventID=1006 or EventID=1008 or EventID=1010 or EventID=2001 or EventID=2003 or EventID=2004 or EventID=3002 or EventID=5008)]]</Select>
+  <Query Id="0" Path="Security">
+    <!-- User added to a security-enabled group -->
+    <!-- Local users added to a local security-enabled group will only send the SID of that user to the event collector -->
+    <Select Path="Security">
+      *[System[Provider[@Name='Microsoft-Windows-Security-Auditing']
+        and (EventID=4728 or EventID=4732 or EventID=4756)]]
+    </Select>
+
+    <!-- Modification of a security-enabled group -->
+    <Select Path="Security">
+      *[System[Provider[@Name='Microsoft-Windows-Security-Auditing']
+        and EventID=4735]]
+    </Select>
   </Query>
 </QueryList>
-
-
         ]]>
     </Query>
 
     <ReadExistingEvents>true</ReadExistingEvents>
-    <TransportName>http</TransportName>
+    <TransportName>HTTP</TransportName>
     <ContentFormat>RenderedText</ContentFormat>
     <Locale Language="en-US"/>
     <LogFile>ForwardedEvents</LogFile>
+    <PublisherName>Microsoft-Windows-EventCollector</PublisherName>
     <AllowedSourceNonDomainComputers></AllowedSourceNonDomainComputers>
     <AllowedSourceDomainComputers></AllowedSourceDomainComputers>
 </Subscription>

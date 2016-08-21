@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Subscription xmlns="http://schemas.microsoft.com/2006/03/windows/events/subscription">
+    <SubscriptionId>Account Logon Activity</SubscriptionId>
+    <SubscriptionType>SourceInitiated</SubscriptionType>
+    <Description>Events for non-Kerberos account logon activity</Description>
+    <Enabled>true</Enabled>
+    <Uri>http://schemas.microsoft.com/wbem/wsman/1/windows/EventLog</Uri>
+
+    <ConfigurationMode>Custom</ConfigurationMode>
+    <Delivery Mode="Push">
+        <Batching>
+            <MaxItems>1</MaxItems>
+            <MaxLatencyTime>1000</MaxLatencyTime>
+        </Batching>
+        <PushSettings>
+            <Heartbeat Interval="40000"/>
+        </PushSettings>
+    </Delivery>
+
+    <Query>
+        <![CDATA[
+<QueryList>
+  <Query Id="0" Path="Security">
+    <!-- Account logon audits -->
+    <Select Path="Security">
+      *[System[Provider[@Name='Microsoft-Windows-Security-Auditing']
+        and (Level=4 or Level=0)
+        and (EventID=4624 or EventID=4625)]]
+      and
+      *[EventData[Data[@Name='AuthenticationPackageName']!='Kerberos']]
+      and
+      *[EventData[Data[@Name='TargetUserName']!='ANONYMOUS LOGON']]
+    </Select>
+
+    <!-- Pass the Hash Detection: Success -->
+    <Select Path="Security">
+      *[System[Provider[@Name='Microsoft-Windows-Security-Auditing']
+        and (Level=4 or Level=0)
+        and EventID=4624]]
+      and
+      *[EventData[Data[@Name='LogonType']='3']]
+      and
+      *[EventData[Data[@Name='AuthenticationPackageName']='NTLM']]
+      and
+      *[EventData[Data[@Name='TargetUserName']!='ANONYMOUS LOGON']]
+      and
+      *[EventData[Data[@Name='TargetDomainName']!='DOMAIN_NAME_HERE']]
+    </Select>
+
+    <!-- Pass the Hash Detection: Failure -->
+    <Select Path="Security">
+      *[System[Provider[@Name='Microsoft-Windows-Security-Auditing']
+        and (Level=4 or Level=0)
+        and EventID=4625]]
+      and
+      *[EventData[Data[@Name='LogonType']='3']]
+      and
+      *[EventData[Data[@Name='AuthenticationPackageName']='NTLM']]
+      and
+      *[EventData[Data[@Name='TargetUserName']!='ANONYMOUS LOGON']]
+      and
+      *[EventData[Data[@Name='TargetDomainName']!='DOMAIN_NAME_HERE']]
+    </Select>
+
+    <!-- RDP logon audits -->
+    <Select Path="Security">
+      *[System[Provider[@Name='Microsoft-Windows-Security-Auditing']
+        and (Level=4 or Level=0)
+        and (EventID=4624 or EventID=4634)]]
+      and
+      *[EventData[Data[@Name='LogonType']='10']]
+      and (
+        *[EventData[Data[5]='10']]
+        or
+        *[EventData[Data[@Name='AuthenticationPackageName']='Negotiate']])
+    </Select>
+
+    <!-- Stops all service logons (success & failure) from being captured -->
+    <!-- LogonType 5 and 0 are used for service and system logons respectively -->
+    <Suppress Path="Security">
+      *[System[Provider[@Name='Microsoft-Windows-Security-Auditing']
+        and (Level=4 or Level=0)
+        and (EventID=4624 or EventID=4625 or EventID=4634)]]
+      and
+      *[EventData[((
+          Data[@Name='LogonType']='5'
+          or
+          Data[@Name='LogonType']='0')
+        or
+        Data[@Name='TargetUserName']='ANONYMOUS LOGON'
+        or
+        Data[@Name='TargetUserSID']='S-1-5-18')]]
+    </Suppress>
+  </Query>
+</QueryList>
+        ]]>
+    </Query>
+
+    <ReadExistingEvents>true</ReadExistingEvents>
+    <TransportName>HTTP</TransportName>
+    <ContentFormat>RenderedText</ContentFormat>
+    <Locale Language="en-US"/>
+    <LogFile>ForwardedEvents</LogFile>
+    <PublisherName>Microsoft-Windows-EventCollector</PublisherName>
+    <AllowedSourceNonDomainComputers></AllowedSourceNonDomainComputers>
+    <AllowedSourceDomainComputers></AllowedSourceDomainComputers>
+</Subscription>

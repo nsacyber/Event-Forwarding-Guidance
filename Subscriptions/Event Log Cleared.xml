@@ -1,13 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <Subscription xmlns="http://schemas.microsoft.com/2006/03/windows/events/subscription">
-    <SubscriptionId>PrintDetect</SubscriptionId>
+    <SubscriptionId>Event Log Cleared</SubscriptionId>
     <SubscriptionType>SourceInitiated</SubscriptionType>
-    <Description>Printing document detection. Targets: Windows 7 and above.</Description>
+    <Description>Events for clearing of event or security logs</Description>
     <Enabled>true</Enabled>
     <Uri>http://schemas.microsoft.com/wbem/wsman/1/windows/EventLog</Uri>
 
-    <!-- Use Normal (default), Custom, MinLatency, MinBandwidth -->
     <ConfigurationMode>Custom</ConfigurationMode>
-
     <Delivery Mode="Push">
         <Batching>
             <MaxItems>1</MaxItems>
@@ -20,27 +19,32 @@
 
     <Query>
         <![CDATA[
-
 <QueryList>
   <Query Id="0">
-	<!-- You must customize the custom view filter to further narrow
-	the document/user you wish to find -->
-	<!-- Printing Jobs -->
-    <Select Path="Microsoft-Windows-PrintService/Operational">*[System[Provider[@Name='Microsoft-Windows-PrintService'] and Level=4 and EventID=307]]
-</Select>
+    <!-- Event log cleared -->
+    <Select Path="System">
+      *[System[Provider[@Name='Microsoft-Windows-Eventlog']
+        and Level=4
+        and EventID=104]]
+    </Select>
 
+    <!-- Security log cleared -->
+    <Select Path="Security">
+      *[System[Provider[@Name='Microsoft-Windows-Eventlog']
+        and Level=4
+        and EventID=1102]]
+    </Select>
   </Query>
 </QueryList>
-
-
         ]]>
     </Query>
 
     <ReadExistingEvents>true</ReadExistingEvents>
-    <TransportName>http</TransportName>
+    <TransportName>HTTP</TransportName>
     <ContentFormat>RenderedText</ContentFormat>
     <Locale Language="en-US"/>
     <LogFile>ForwardedEvents</LogFile>
+    <PublisherName>Microsoft-Windows-EventCollector</PublisherName>
     <AllowedSourceNonDomainComputers></AllowedSourceNonDomainComputers>
     <AllowedSourceDomainComputers></AllowedSourceDomainComputers>
 </Subscription>

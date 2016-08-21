@@ -1,13 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <Subscription xmlns="http://schemas.microsoft.com/2006/03/windows/events/subscription">
-    <SubscriptionId>WinUpdateErr</SubscriptionId>
+    <SubscriptionId>USB Storage Installation</SubscriptionId>
     <SubscriptionType>SourceInitiated</SubscriptionType>
-    <Description>Windows Update Errors. Targets: Windows Vista+</Description>
+    <Description>Events for USB mass storage device installation</Description>
     <Enabled>true</Enabled>
     <Uri>http://schemas.microsoft.com/wbem/wsman/1/windows/EventLog</Uri>
 
-    <!-- Use Normal (default), Custom, MinLatency, MinBandwidth -->
     <ConfigurationMode>Custom</ConfigurationMode>
-
     <Delivery Mode="Push">
         <Batching>
             <MaxItems>1</MaxItems>
@@ -20,26 +19,27 @@
 
     <Query>
         <![CDATA[
-            
 <QueryList>
   <Query Id="0">
-	<!-- Windows Update Service Errors -->
-    <Select Path="Microsoft-Windows-WindowsUpdateClient/Operational">*[System[Provider[@Name='Microsoft-Windows-WindowsUpdateClient'] and Level=2 and (EventID=20 or EventID=24 or EventID=25 or EventID=31 or EventID=34 or EventID=35)]]</Select>
-
-	<!-- Hotpatching Errors -->
-    <Select Path="Setup">*[System[Provider[@Name='Microsoft-Windows-Servicing'] and Level=0 and EventID=1009]]</Select>
+    <!-- USB mass storage device installation -->
+    <Select Path='Microsoft-Windows-Kernel-PnP/Configuration'>
+      *[System[Provider[@Name='Microsoft-Windows-Kernel-PnP']
+        and Level=4
+        and (EventID=400 or EventID=410)]]
+      and
+      *[EventData[Data[@Name='DriverName']="usbstor.inf"]]
+    </Select>
   </Query>
 </QueryList>
-
-
         ]]>
     </Query>
 
     <ReadExistingEvents>true</ReadExistingEvents>
-    <TransportName>http</TransportName>
+    <TransportName>HTTP</TransportName>
     <ContentFormat>RenderedText</ContentFormat>
     <Locale Language="en-US"/>
     <LogFile>ForwardedEvents</LogFile>
+    <PublisherName>Microsoft-Windows-EventCollector</PublisherName>
     <AllowedSourceNonDomainComputers></AllowedSourceNonDomainComputers>
     <AllowedSourceDomainComputers></AllowedSourceDomainComputers>
 </Subscription>

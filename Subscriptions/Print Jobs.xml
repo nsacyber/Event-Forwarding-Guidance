@@ -1,13 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <Subscription xmlns="http://schemas.microsoft.com/2006/03/windows/events/subscription">
-    <SubscriptionId>UserToPriv</SubscriptionId>
+    <SubscriptionId>Print Jobs</SubscriptionId>
     <SubscriptionType>SourceInitiated</SubscriptionType>
-    <Description>User Account Added to Privileged Group events. Targets: Vista+</Description>
+    <Description>Events for print job submission</Description>
     <Enabled>true</Enabled>
     <Uri>http://schemas.microsoft.com/wbem/wsman/1/windows/EventLog</Uri>
 
-    <!-- Use Normal (default), Custom, MinLatency, MinBandwidth -->
     <ConfigurationMode>Custom</ConfigurationMode>
-
     <Delivery Mode="Push">
         <Batching>
             <MaxItems>1</MaxItems>
@@ -20,28 +19,25 @@
 
     <Query>
         <![CDATA[
-
 <QueryList>
-  <Query Id="0" Path="Security">
-        <!-- Local Users added to a local security-enabled group will only -->
-        <!-- send the SID value of that user to the collector -->
-        <!-- User added to security-enabled group (Domain and local) -->
-    <Select Path="Security">*[System[Provider[@Name='Microsoft-Windows-Security-Auditing'] and (EventID=4728 or EventID=4732 or EventID=4756)]]</Select>
-
-        <!-- Modification of Security-enabled groups -->
-    <Select Path="Security">*[System[Provider[@Name='Microsoft-Windows-Security-Auditing'] and EventID=4735]]</Select>
+  <Query Id="0">
+    <!-- Print job submission -->
+    <Select Path="Microsoft-Windows-PrintService/Operational">
+      *[System[Provider[@Name='Microsoft-Windows-PrintService']
+        and Level=4
+        and EventID=307]]
+    </Select>
   </Query>
 </QueryList>
-
-
         ]]>
     </Query>
 
     <ReadExistingEvents>true</ReadExistingEvents>
-    <TransportName>http</TransportName>
+    <TransportName>HTTP</TransportName>
     <ContentFormat>RenderedText</ContentFormat>
     <Locale Language="en-US"/>
     <LogFile>ForwardedEvents</LogFile>
+    <PublisherName>Microsoft-Windows-EventCollector</PublisherName>
     <AllowedSourceNonDomainComputers></AllowedSourceNonDomainComputers>
     <AllowedSourceDomainComputers></AllowedSourceDomainComputers>
 </Subscription>

@@ -1,13 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <Subscription xmlns="http://schemas.microsoft.com/2006/03/windows/events/subscription">
-    <SubscriptionId>WinUpdateErr</SubscriptionId>
+    <SubscriptionId>Application Crashes</SubscriptionId>
     <SubscriptionType>SourceInitiated</SubscriptionType>
-    <Description>Windows Update Errors. Targets: Windows Vista+</Description>
+    <Description>Events for application crashes, hangs &amp; WER reports</Description>
     <Enabled>true</Enabled>
     <Uri>http://schemas.microsoft.com/wbem/wsman/1/windows/EventLog</Uri>
 
-    <!-- Use Normal (default), Custom, MinLatency, MinBandwidth -->
     <ConfigurationMode>Custom</ConfigurationMode>
-
     <Delivery Mode="Push">
         <Batching>
             <MaxItems>1</MaxItems>
@@ -20,26 +19,39 @@
 
     <Query>
         <![CDATA[
-            
 <QueryList>
-  <Query Id="0">
-	<!-- Windows Update Service Errors -->
-    <Select Path="Microsoft-Windows-WindowsUpdateClient/Operational">*[System[Provider[@Name='Microsoft-Windows-WindowsUpdateClient'] and Level=2 and (EventID=20 or EventID=24 or EventID=25 or EventID=31 or EventID=34 or EventID=35)]]</Select>
+  <Query Id="0" Path="Application">
+    <!-- Application crashes -->
+    <Select Path="Application">
+      *[System[Provider[@Name='Application Error']
+        and Level=2
+        and EventID=1000]]
+    </Select>
 
-	<!-- Hotpatching Errors -->
-    <Select Path="Setup">*[System[Provider[@Name='Microsoft-Windows-Servicing'] and Level=0 and EventID=1009]]</Select>
+    <!-- Application hangs -->
+    <Select Path="Application">
+      *[System[Provider[@Name='Application Hang']
+        and Level=2
+        and EventID=1002]]
+    </Select>
+
+    <!-- WER reports -->
+    <Select Path="Application">
+      *[System[Provider[@Name='Windows Error Reporting']
+        and Level=4
+        and EventID=1001]]
+    </Select>
   </Query>
 </QueryList>
-
-
         ]]>
     </Query>
 
     <ReadExistingEvents>true</ReadExistingEvents>
-    <TransportName>http</TransportName>
+    <TransportName>HTTP</TransportName>
     <ContentFormat>RenderedText</ContentFormat>
     <Locale Language="en-US"/>
     <LogFile>ForwardedEvents</LogFile>
+    <PublisherName>Microsoft-Windows-EventCollector</PublisherName>
     <AllowedSourceNonDomainComputers></AllowedSourceNonDomainComputers>
     <AllowedSourceDomainComputers></AllowedSourceDomainComputers>
 </Subscription>
