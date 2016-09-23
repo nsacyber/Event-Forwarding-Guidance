@@ -1,6 +1,6 @@
 <#
 .SYNOPSIS
-Subscription Utility will is wrapper for managing subscriptions.
+Subscription Utility is a wrapper for managing subscriptions.
 
 .DESCRIPTION
 Subscription Utility provides the ability to easily automatic several functionality of wevtutil for handling subscriptions. This utility is simply a wrapper of wevtutil. 
@@ -48,7 +48,7 @@ This will delete custom views for NT6 subscriptions currently in use.
 Remove susbcriptions that were created from the NT6\  directory without removing custom views.
 
 .LINK
-http://www.nsa.gov/ia/_files/app/Spotting_the_Adversary_with_Windows_Event_Log_Monitoring.pdf
+https://www.iad.gov/iad/library/ia-guidance/security-configuration/applications/spotting-the-adversary-with-windows-event-log-monitoring.cfm
 #>
 
 [CmdletBinding(DefaultParameterSetName="help")]

@@ -69,7 +69,7 @@ At C:\EvtFwdSubscriptions\scripts\Fill-GroupName.ps1:285 char:3
 Invalid object name/SID used.
 
 .LINK
-http://www.nsa.gov/ia/_files/app/Spotting_the_Adversary_with_Windows_Event_Log_Monitoring.pdf
+https://www.iad.gov/iad/library/ia-guidance/security-configuration/applications/spotting-the-adversary-with-windows-event-log-monitoring.cfm
 #>
 
 
