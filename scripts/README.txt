@@ -1,4 +1,4 @@
-The scripts in this directory need to run in a particular if starting
+The scripts in this directory need to run in a particular order if starting
 for the first time. These steps will setup Windows Event Collection subscriptions. 
 The targeted groups are "Domain Computers"  and "Domain Controllers". These groups
 can be changed later.
