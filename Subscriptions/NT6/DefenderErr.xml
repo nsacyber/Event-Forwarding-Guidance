@@ -25,7 +25,7 @@
 <QueryList>
   <Query Id="0" Path="Microsoft-Windows-Windows Defender/Operational">
 	<!-- Windows Defender Activities -->
-    <Select Path="Microsoft-Windows-Windows Defender/Operational">*[System[Proivder[@Name='Windows Defender'] and (Level=2 or Level=3) and (EventID=1005 or EventID=1006 or EventID=1008 or EventID=1010 or EventID=2001 or EventID=2003 or EventID=2004 or EventID=3002 or EventID=5008)]]</Select>
+    <Select Path="Microsoft-Windows-Windows Defender/Operational">*[System[Provider[@Name='Windows Defender'] and (Level=2 or Level=3) and (EventID=1005 or EventID=1006 or EventID=1008 or EventID=1010 or EventID=2001 or EventID=2003 or EventID=2004 or EventID=3002 or EventID=5008)]]</Select>
   </Query>
 </QueryList>
 
