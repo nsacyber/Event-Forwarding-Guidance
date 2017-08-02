@@ -10,10 +10,12 @@ NSA Information Assurance has a security guide called [Spotting the Adversary wi
 
 ## Links
 * [Microsoft Windows Event Forwarding Resources](https://aka.ms/wef)
-* [Use Windows Event Forwarding to help with intrusion detection](https://technet.microsoft.com/itpro/windows/keep-secure/use-windows-event-forwarding-to-assist-in-instrusion-detection)
+* [Use Windows Event Forwarding to help with intrusion detection](https://docs.microsoft.com/en-us/windows/threat-protection/use-windows-event-forwarding-to-assist-in-instrusion-detection)
 * [Windows 10 and Windows Server 2016 security auditing and monitoring reference](https://www.microsoft.com/en-us/download/details.aspx?id=52630)
-* [List of important events from Microsoft](https://technet.microsoft.com/windows-server-docs/identity/ad-ds/plan/appendix-l--events-to-monitor)
+* [List of important events from Microsoft](https://docs.microsoft.com/en-us/windows-server/identity/ad-ds/plan/appendix-l--events-to-monitor)
 * [Microsoft Sysmon Tool](https://technet.microsoft.com/en-us/sysinternals/sysmon)
+* [ASD GitHub Windows Event Logging repository](https://github.com/AustralianCyberSecurityCentre/windows_event_logging)
+* [ASD Windows Event Logging Technical Guidance](https://asd.gov.au/publications/protect/Windows_Event_Logging_Technical_Guidance.pdf)
 
 # License
 See [LICENSE](./LICENSE.md).
