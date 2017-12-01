@@ -317,6 +317,7 @@ System Integrity ensures the trustworthiness of a host in the presence of manipu
 | System Time Changed | 4616 | Information | Security | Microsoft-Windows-Security-Auditing |
 
 A non-exhaustive registry key and value list to potentially monitor
+
 |   Registry key / value | 
 | --- | 
 | HKLM\SYSTEM\CurrentControlSet\Services\Ntmssvc\ |
