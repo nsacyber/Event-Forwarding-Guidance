@@ -1,3 +1,5 @@
+# Contributing
+
 All contributions to this project will be released as follows:
 
 1. If you are a U.S. government employee, then your changes are exempt from copyright in the U.S. and will be released under the [CC0 1.0](https://creativecommons.org/publicdomain/zero/1.0/) [Universal license](https://creativecommons.org/publicdomain/zero/1.0/legalcode) worldwide.
