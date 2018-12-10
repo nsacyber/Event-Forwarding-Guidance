@@ -995,14 +995,6 @@
     "PowerShell Activities": {
       "description": "PowerShell events can be interesting as Powershell is included by default in modern Windows installations. If a PowerShell script is failing, it may indicate misconfiguration, missing files, or malicious activity. Use of the Get-MessageTrackingLog cmdlet can be used to enumerate Exchange Server mail metadata, returning detailed information about the history of each mail message traveling through the server.",
       "events": {
-        "Exception Raised": {
-          "4103": {
-            "level": "Information",
-            "eventlog": "Microsoft-Windows-Powershell/Operational",
-            "eventsource": "Microsoft-Windows-Powershell",
-            "notes": "PowerShell exception raised."            
-          }
-        },
         "Get-MessageTrackingLog cmdlet": {
           "800": {
             "level": "Information",
@@ -1017,6 +1009,38 @@
             "eventlog": "Powershell",
             "eventsource": "Microsoft-Windows-Powershell",
             "notes": "PowerShell remoting connection (legacy)"
+          }
+        },
+        "Exception Raised": {
+          "4103": {
+            "level": "Information",
+            "eventlog": "Microsoft-Windows-Powershell/Operational",
+            "eventsource": "Microsoft-Windows-Powershell",
+            "notes": "PowerShell exception raised."            
+          }
+        },
+        "Script block contents": {
+          "4104": {
+            "level": "Information",
+            "eventlog": "Microsoft-Windows-Powershell/Operational",
+            "eventsource": "Microsoft-Windows-Powershell",
+            "notes": "PowerShell script block contents."            
+          }
+        },
+        "Script block start": {
+          "4105": {
+            "level": "Information",
+            "eventlog": "Microsoft-Windows-Powershell/Operational",
+            "eventsource": "Microsoft-Windows-Powershell",
+            "notes": "PowerShell script block start."            
+          }
+        },
+        "Script block end": {
+          "4106": {
+            "level": "Information",
+            "eventlog": "Microsoft-Windows-Powershell/Operational",
+            "eventsource": "Microsoft-Windows-Powershell",
+            "notes": "PowerShell script block end."            
           }
         }
       }

@@ -278,11 +278,21 @@ A failed logon attempt when trying to move laterally using PtH would trigger an 
 
 PowerShell events can be interesting as Powershell is included by default in modern Windows installations. If a PowerShell script is failing, it may indicate misconfiguration, missing files, or malicious activity. Use of the Get-MessageTrackingLog cmdlet can be used to enumerate Exchange Server mail metadata, returning detailed information about the history of each mail message traveling through the server.
 
+Script block logging can be enabled with PowerShell 5.0+ and PowerShell 4.0 with patches enabled. For more information:
+
+* <https://docs.microsoft.com/en-us/powershell/wmf/5.0/audit_script>
+* <https://blogs.msdn.microsoft.com/powershell/2015/06/09/powershell-the-blue-team/>
+* <https://www.fireeye.com/blog/threat-research/2016/02/greater_visibilityt.html>
+
 |   | ID | Level | Event Log | Event Source |
 | --- | --- | --- | --- | --- |
-| Exception Raised | 4103 | Information | Microsoft-Windows-Powershell/Operational | Microsoft-Windows-Powershell |
 | Get-MessageTrackingLog cmdlet | 800 | Information | Powershell | Microsoft-Windows-Powershell |
 | Remote Connection | 169 | Information | Powershell | Microsoft-Windows-Powershell |
+| Exception Raised | 4103 | Information | Microsoft-Windows-Powershell/Operational | Microsoft-Windows-Powershell |
+| Script block contents | 4104 | Information | Microsoft-Windows-Powershell/Operational | Microsoft-Windows-Powershell |
+| Script block start | 4105 | Information | Microsoft-Windows-Powershell/Operational | Microsoft-Windows-Powershell |
+| Script block end | 4106 | Information | Microsoft-Windows-Powershell/Operational | Microsoft-Windows-Powershell |
+
 
 ### Printing Services
 
