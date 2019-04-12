@@ -82,7 +82,7 @@ Certificate Services receives requests for digital certificates over RPC or HTTP
 
 |   | ID | Level | Event Log | Event Source |
 | --- | --- | --- | --- | --- |
-| CA Permissions Corrupted or Missing | 90 | Error | Application | Microsoft-Windows-CertificationAuthority |
+| CA Permissions Corrupted or Missing | 95 | Error | Application | Microsoft-Windows-CertificationAuthority |
 | CA Services Request | 4886 | Information | Security | Microsoft-Windows-Security-Auditing |
 | Certificate Manager Settings Changed | 4890 | Information | Security | Microsoft-Windows-Security-Auditing |
 | Certificate Request Attributes Changed | 4874 | Information | Security | Microsoft-Windows-Security-Auditing |
