@@ -1252,7 +1252,7 @@
         },
         "CA Permissions Corrupted or Missing": {
           "95": {
-            "level": "Information",
+            "level": "Error",
             "eventlog": "Application",
             "eventsource": "Microsoft-Windows-CertificationAuthority",
             "notes": "Security Permission corrupt or missing"
