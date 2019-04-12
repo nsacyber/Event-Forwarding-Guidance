@@ -13,6 +13,8 @@ The repository contains:
 * [Microsoft Windows Event Forwarding resources](https://aka.ms/wef)
 * [Use Windows Event Forwarding to help with intrusion detection](https://docs.microsoft.com/en-us/windows/security/threat-protection/use-windows-event-forwarding-to-assist-in-intrusion-detection)
 * [Windows 10 and Windows Server 2016 security auditing and monitoring reference](https://www.microsoft.com/en-us/download/details.aspx?id=52630)
+* [Microsoft's Threat Protection: Advanced security audit policy settings](https://docs.microsoft.com/en-us/windows/security/threat-protection/auditing/advanced-security-audit-policy-settings)
+* [Microsoft's Threat Protection: Security auditing](https://docs.microsoft.com/en-us/windows/security/threat-protection/auditing/security-auditing-overview)
 * [List of important events from Microsoft](https://docs.microsoft.com/en-us/windows-server/identity/ad-ds/plan/appendix-l--events-to-monitor)
 * [Microsoft SysInternals Sysmon](https://docs.microsoft.com/en-us/sysinternals/downloads/sysmon)
 * [ACSC GitHub Windows Event Logging repository](https://github.com/AustralianCyberSecurityCentre/windows_event_logging)
