@@ -245,7 +245,7 @@
           "7045": {
             "level": "Information",
             "eventlog": "System",
-            "eventsource": "Microsoft-Windows-FilterManager",
+            "eventsource": "Service Control Manager",
             "notes": ""
           }
         },
