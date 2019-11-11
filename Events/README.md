@@ -100,12 +100,12 @@ Certificate Services receives requests for digital certificates over RPC or HTTP
 | Certificate Services Template Security Updated | 4900 | Information | Security | Microsoft-Windows-Security-Auditing |
 | Certificate Services Template Updated | 4899 | Information | Security | Microsoft-Windows-Security-Auditing |
 | Entries Removed from Certificate Database | 4896 | Information | Security | Microsoft-Windows-Security-Auditing |
-| Import Certificate | 1006 | Information | Microsoft-Windows-CertificateServicesClientLifecycle-System/Operational | Microsoft-Windows-CertificateServicesClientLifecycle-System |
-| Remove Certificate | 1004 | Information | Microsoft-Windows-CertificateServicesClientLifecycle-System/Operational | Microsoft-Windows-CertificateServicesClientLifecycle-System |
-| Exported Certificate | 1007 | Information | Microsoft-Windows-CertificateServicesClientLifecycle-System/Operational | Microsoft-Windows-CertificateServicesClientLifecycle-System |
-| Certificate close to expiration | 1003 | Warning | Microsoft-Windows-CertificateServicesClientLifecycle-System/Operational | Microsoft-Windows-CertificateServicesClientLifecycle-System |
-| Replace Certificate | 1001 | Information | Microsoft-Windows-CertificateServicesClientLifecycle-System/Operational | Microsoft-Windows-CertificateServicesClientLifecycle-System |
-| Expired Certificate | 1002 | Error | Microsoft-Windows-CertificateServicesClientLifecycle-System/Operational | Microsoft-Windows-CertificateServicesClientLifecycle-System |
+| Import Certificate | 1006 | Information | Microsoft-Windows-CertificateServicesClient-Lifecycle-System/Operational | Microsoft-Windows-CertificateServicesClient-Lifecycle-System |
+| Remove Certificate | 1004 | Information | Microsoft-Windows-CertificateServicesClient-Lifecycle-System/Operational | Microsoft-Windows-CertificateServicesClient-Lifecycle-System |
+| Exported Certificate | 1007 | Information | Microsoft-Windows-CertificateServicesClient-Lifecycle-System/Operational | Microsoft-Windows-CertificateServicesClient-Lifecycle-System |
+| Certificate close to expiration | 1003 | Warning | Microsoft-Windows-CertificateServicesClient-Lifecycle-System/Operational | Microsoft-Windows-CertificateServicesClient-Lifecycle-System |
+| Replace Certificate | 1001 | Information | Microsoft-Windows-CertificateServicesClient-Lifecycle-System/Operational | Microsoft-Windows-CertificateServicesClient-Lifecycle-System |
+| Expired Certificate | 1002 | Error | Microsoft-Windows-CertificateServicesClient-Lifecycle-System/Operational | Microsoft-Windows-CertificateServicesClient-Lifecycle-System |
 
 ### Clearing Event Logs
 
