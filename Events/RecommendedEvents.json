@@ -1327,6 +1327,46 @@
             "notes": "Wireless 802.1X Auth"
           }
         },
+        "Netlogon service allowed a vulnerable Netlogon secure channel connection": {
+          "5829": {
+            "level": "Warning",
+            "eventlog": "System",
+            "eventsource": "NETLOGON",
+            "notes": "The Netlogon service allowed a vulnerable Netlogon secure channel connection."
+          }
+        },
+        "Netlogon service allowed a vulnerable Netlogon secure channel connection as the machine account has been whitelisted in the adequate group policy": {
+          "5830": {
+            "level": "Warning",
+            "eventlog": "System",
+            "eventsource": "NETLOGON",
+            "notes": "The Netlogon service allowed a vulnerable Netlogon secure channel connection because the machine account is allowed in the \"Domain controller: Allow vulnerable Netlogon secure channel connections\" group policy."
+          }
+        },
+        "Netlogon service allowed a vulnerable Netlogon secure channel connection as the trust account has been whitelisted in the adequate group policy": {
+          "5831": {
+            "level": "Warning",
+            "eventlog": "System",
+            "eventsource": "NETLOGON",
+            "notes": "The Netlogon service allowed a vulnerable Netlogon secure channel connection because the trust account is allowed in the \"Domain controller: Allow vulnerable Netlogon secure channel connections\" group policy."
+          }
+        },
+        "Netlogon service denied a vulnerable Netlogon secure channel connection using a trust account": {
+          "5828": {
+            "level": "Error",
+            "eventlog": "System",
+            "eventsource": "NETLOGON",
+            "notes": "The Netlogon service denied a vulnerable Netlogon secure channel connection using a trust account."
+          }
+        },
+        "Netlogon service denied a vulnerable Netlogon secure channel connection using a machine account": {
+          "5827": {
+            "level": "Error",
+            "eventlog": "System",
+            "eventsource": "NETLOGON",
+            "notes": "The Netlogon service denied a vulnerable Netlogon secure channel connection from a machine account."
+          }
+        },
         "Network Policy Server Granted Access": {
           "6272": {
             "level": "Information",

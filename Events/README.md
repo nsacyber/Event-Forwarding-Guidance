@@ -203,6 +203,11 @@ Monitoring network activities can be performed in multiple ways ranging from a n
 | Encrypted Data Recovery Policy Changed | 4714 | Information | Security | Microsoft-Windows-Security-Auditing |
 | Kerberos Policy Changed | 4713 | Information | Security | Microsoft-Windows-Security-Auditing |
 | Kerberos Service Ticket Req. Failed | 4769 | Information | Security | Microsoft-Windows-Security-Auditing |
+| Netlogon service allowed a vulnerable Netlogon secure channel connection | 5828 | Warning | System | NETLOGON |
+| Netlogon service allowed a vulnerable Netlogon secure channel connection as the machine account has been whitelisted in the adequate group policy | 5830 | Warning | System | NETLOGON |
+| Netlogon service allowed a vulnerable Netlogon secure channel connection as the trust account has been whitelisted in the adequate group policy | 5830 | Warning | System | NETLOGON |
+| Netlogon service denied a vulnerable Netlogon secure channel connection using a trust account | 5828 | Error | System | NETLOGON |
+| Netlogon service denied a vulnerable Netlogon secure channel connection from a machine account | 5827 | Error | System | NETLOGON |
 | Network Policy Server Denied Access | 6273 | Information | Security | Microsoft-Windows-Security-Auditing |
 | Network Policy Server Discarded Accounting Request | 6275 | Information | Security | Microsoft-Windows-Security-Auditing |
 | Network Policy Server Discarded Request | 6274 | Information | Security | Microsoft-Windows-Security-Auditing |
@@ -227,6 +232,7 @@ Monitoring network activities can be performed in multiple ways ranging from a n
 | TS Session Disconnect | 4779 | Information | Security | Microsoft-Windows-Security-Auditing |
 | TS Session Reconnect | 4778 | Information | Security | Microsoft-Windows-Security-Auditing |
 | Wireless 802.1X Auth | 5632 | Information | Security | Microsoft-Windows-Security-Auditing |
+
 
 ### Pass the Hash Detection
 
@@ -377,6 +383,7 @@ A non-exhaustive registry key and value list to potentially monitor
 | HKLM\SYSTEM\CurrentControlSet\Services\uploadmgr\ |
 | HKLM\SYSTEM\CurrentControlSet\Services\FastUserSwitchingCompatibility\ |
 | HKLM\SYSTEM\CurrentControlSet\Services\Ias\ |
+| HKLM\SYSTEM\CurrentControlSet\Services\Netlogon\Parameters |
 | HKLM\SYSTEM\CurrentControlSet\Services\Nla\ |
 | HKLM\SYSTEM\CurrentControlSet\Services\Wmi\ |
 | HKLM\SYSTEM\CurrentControlSet\Services\Irmon\ |
@@ -389,6 +396,7 @@ A non-exhaustive registry key and value list to potentially monitor
 | HKLM\SOFTWARE\Microsoft\WOW6432Node\Microsoft\Cryptography\Providers\Trust |
 | HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Drivers32\ |
 | HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Font Drivers\ |
+
 
 ### System or Service Failures
 
