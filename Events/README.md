@@ -233,7 +233,6 @@ Monitoring network activities can be performed in multiple ways ranging from a n
 | TS Session Reconnect | 4778 | Information | Security | Microsoft-Windows-Security-Auditing |
 | Wireless 802.1X Auth | 5632 | Information | Security | Microsoft-Windows-Security-Auditing |
 
-
 ### Pass the Hash Detection
 
 Tracking user accounts for detecting Pass the Hash (PtH) requires creating a custom view with XML to configure more advanced filtering options. The event query language is based on XPath. The recommended **QueryList** below is limited in detecting PtH attacks. These queries focus on discovering lateral movement by an attacker using local accounts that are not part of a domain. The **QueryList** captures events that show a local account attempting to connect remotely to another machine not part of the domain. This event is a rarity so any occurrence should be treated as suspicious.
@@ -396,7 +395,6 @@ A non-exhaustive registry key and value list to potentially monitor
 | HKLM\SOFTWARE\Microsoft\WOW6432Node\Microsoft\Cryptography\Providers\Trust |
 | HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Drivers32\ |
 | HKLM\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Font Drivers\ |
-
 
 ### System or Service Failures
 
