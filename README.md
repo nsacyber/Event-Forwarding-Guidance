@@ -8,6 +8,10 @@ The repository contains:
 * [Scripts](./scripts/) to create custom Event Log views and create WEF subscriptions.
 * [WEF subscriptions](./Subscriptions/) in XML format.
 
+## Changelog from Official
+* Added Event IDs that have been added within the security updates of August 11, 2020 due to CVE-2020-1472, Netlogon Elevation of Privilege Vulnerability
+
+
 ## Links
 
 * [Microsoft Windows Event Forwarding resources](https://aka.ms/wef)
