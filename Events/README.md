@@ -350,6 +350,7 @@ It should be noted that an additional Program Inventory event ID 800 is generate
 | New Kernel Filter Driver | 6 | Information | System | Microsoft-Windows-FilterManager |
 | New MSI File Installed | 1022, 1033 | Information | Application | MsiInstaller |
 | New Windows Service | 7045 | Information | System | Microsoft-Windows-FilterManager |
+| A service was installed in the system | 4697 | Information | | Microsoft-Windows-Security-Auditing |
 | Removed Application | 907, 908 | Information | Microsoft-Windows-Application-Experience/Program-Inventory | Microsoft-Windows-Application-Experience |
 | Service Start Failure | 7000 | Error | System | Service Control Manager |
 | Summary of Software Activities | 800 | Information | Microsoft-Windows-Application-Experience/Program-Inventory | Microsoft-Windows-Application-Experience |
