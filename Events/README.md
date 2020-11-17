@@ -202,6 +202,7 @@ Monitoring network activities can be performed in multiple ways ranging from a n
 | --- | --- | --- | --- | --- |
 | Encrypted Data Recovery Policy Changed | 4714 | Information | Security | Microsoft-Windows-Security-Auditing |
 | Kerberos Policy Changed | 4713 | Information | Security | Microsoft-Windows-Security-Auditing |
+| Kerberos authentication ticket (TGT) was requested | 4768 | Information | Security | Microsoft-Windows-Security-Auditing |
 | Kerberos Service Ticket Req. Failed | 4769 | Information | Security | Microsoft-Windows-Security-Auditing |
 | Netlogon service allowed a vulnerable Netlogon secure channel connection | 5828 | Warning | System | NETLOGON |
 | Netlogon service allowed a vulnerable Netlogon secure channel connection as the machine account has been whitelisted in the adequate group policy | 5830 | Warning | System | NETLOGON |
