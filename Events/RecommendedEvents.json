@@ -3,24 +3,26 @@
     "Application Whitelisting": {
       "description": "Application whitelisting events should be collected to look for applications that have been blocked from execution. Any blocked applications could be malware or users trying to run unapproved software. Software Restriction Policies (SRP) is supported on Windows XP and above. The AppLocker feature is available for Windows 7 and above Enterprise and Ultimate editions only. Application Whitelisting events can be collected if SRP or AppLocker are actively being used on the network.",
       "events": {
-        "AppLocker Block": {
+        "Executable or DLL ran": {
           "8002": {
             "level": "Information",
             "eventlog": "Microsoft-Windows-AppLocker/EXE and DLL",
             "eventsource": "Microsoft-Windows-AppLocker",
             "notes": "Configured to audit process starts."
-          },
-          "8003": {
+          }
+        },
+        "AppLocker Block": {
+          "8004": {
             "level": "Error",
             "eventlog": "Microsoft-Windows-AppLocker/EXE and DLL",
             "eventsource": "Microsoft-Windows-AppLocker",
-            "notes": ""
+            "notes": "Blocked. Enforce rules mode only."
           },
-          "8004": {
-            "level": "Warning",
-            "eventlog": "Microsoft-Windows-AppLocker/EXE and DLL",
+          "8007": {
+            "level": "Error",
+            "eventlog": "Microsoft-Windows-AppLocker/MSI and Script",
             "eventsource": "Microsoft-Windows-AppLocker",
-            "notes": ""
+            "notes": "Blocked. Enforce rules mode only."
           }
         },
         "Script or Installer ran": {
@@ -32,17 +34,17 @@
           }
         },
         "AppLocker Warning": {
-          "8006": {
-            "level": "Error",
-            "eventlog": "Microsoft-Windows-AppLocker/MSI and Script",
+          "8003": {
+            "level": "Warning",
+            "eventlog": "Microsoft-Windows-AppLocker/EXE and DLL",
             "eventsource": "Microsoft-Windows-AppLocker",
-            "notes": ""
+            "notes": "Would have been blocked if rules were enforced. Audit only mode."
           },
-          "8007": {
+          "8006": {
             "level": "Warning",
             "eventlog": "Microsoft-Windows-AppLocker/MSI and Script",
             "eventsource": "Microsoft-Windows-AppLocker",
-            "notes": ""
+            "notes": "Would have been blocked if rules were enforced. Audit only mode."
           }
         },
         "Application Ran": {
