@@ -58,11 +58,11 @@ Application whitelisting events should be collected to look for applications tha
 | --- | --- | --- | --- | --- |
 | Application Installed | 8023 | Information | Microsoft-Windows-AppLocker/Packaged app-Deployment | Microsoft-Windows-AppLocker |
 | Application Ran | 8020 | Information | Microsoft-Windows-AppLocker/Packaged app-Execution | Microsoft-Windows-AppLocker |
-| AppLocker Block | 8002 | Information | Microsoft-Windows-AppLocker/EXE and DLL | Microsoft-Windows-AppLocker |
-| AppLocker Block | 8003 | Error | Microsoft-Windows-AppLocker/EXE and DLL | Microsoft-Windows-AppLocker |
-| AppLocker Block | 8004 | Warning | Microsoft-Windows-AppLocker/EXE and DLL | Microsoft-Windows-AppLocker |
-| AppLocker Warning | 8006 | Error | Microsoft-Windows-AppLocker/MSI and Script | Microsoft-Windows-AppLocker |
-| AppLocker Warning | 8007 | Warning | Microsoft-Windows-AppLocker/MSI and Script | Microsoft-Windows-AppLocker |
+| AppLocker Block | 8004 | Error | Microsoft-Windows-AppLocker/EXE and DLL | Microsoft-Windows-AppLocker |
+| AppLocker Block | 8007 | Error | Microsoft-Windows-AppLocker/MSI and Script | Microsoft-Windows-AppLocker |
+| AppLocker Warning | 8003 | Warning | Microsoft-Windows-AppLocker/EXE and DLL | Microsoft-Windows-AppLocker |
+| AppLocker Warning | 8006 | Warning | Microsoft-Windows-AppLocker/MSI and Script | Microsoft-Windows-AppLocker |
+| Executable or DLL ran | 8002 | Information | Microsoft-Windows-AppLocker/EXE and DLL | Microsoft-Windows-AppLocker |
 | Process Created | 4688 | Information | Security | Microsoft-Windows-Security-Auditing |
 | Process Terminated | 4689 | Information | Security | Microsoft-Windows-Security-Auditing |
 | Script or Installer ran | 8005 | Information | Microsoft-Windows-AppLocker/MSI and Script | Microsoft-Windows-AppLocker |
